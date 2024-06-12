@@ -9,8 +9,13 @@ class admin extends BaseController
         return view("Home/index");
     }
 
-    public function addBook (): string
+    public function addBook(): string
     {
         return view("addBook/index");
+    }
+
+    public function Home(): string
+    {
+        return view("Home/index");
     }
 }

@@ -12,4 +12,9 @@ class Home extends BaseController
     {
         return view("addBook/index");
     }
+
+    public function Home(): string
+    {
+        return view("Home/index");
+    }
 }

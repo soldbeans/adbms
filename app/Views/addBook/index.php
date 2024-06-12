@@ -7,7 +7,7 @@
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <!-- External CSS -->
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="home.css">
 </head>
 <body>
     <div class="header">
@@ -20,7 +20,7 @@
         </button>
         <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
             <ul class="navbar-nav">
-                <li class="nav-item"><a class="nav-link" href="index.html#home">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="<?= base_url('/Home')?>">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="index.html#catalog">Catalog</a></li>
                 <li class="nav-item"><a class="nav-link" href="index.html#checkouts">Checkouts</a></li>
                 <li class="nav-item"><a class="nav-link" href="index.html#inventory">Inventory</a></li>

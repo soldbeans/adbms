@@ -9,3 +9,4 @@ $routes->get('/', 'Home::index');
 
 $routes->get('/addBook','Home::addBook');
 $routes->get('/addBook','admin::addBook');
+$routes->get('/Home','Home::Home');
