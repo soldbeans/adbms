@@ -11,7 +11,7 @@ class Home extends BaseController
 
     public function Home(): string
     {
-        return view("Home/index");
+        return view ('navbar') . view("Home/index");
     }
 
     public function Catalog(): string

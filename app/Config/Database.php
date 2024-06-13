@@ -27,13 +27,13 @@ class Database extends Config
     public array $default = [
         'DSN'          => '',
         'hostname'     => 'localhost',
-        'username'     => '',
-        'password'     => '',
-        'database'     => '',
+        'username'     => 'root',       // Your MySQL username
+        'password'     => '',           // Your MySQL password
+        'database'     => 'libraryworks', // Your database name
         'DBDriver'     => 'MySQLi',
         'DBPrefix'     => '',
         'pConnect'     => false,
-        'DBDebug'      => true,
+        'DBDebug'      => (ENVIRONMENT !== 'production'),
         'charset'      => 'utf8mb4',
         'DBCollat'     => 'utf8mb4_general_ci',
         'swapPre'      => '',
@@ -49,6 +49,7 @@ class Database extends Config
             'time'     => 'H:i:s',
         ],
     ];
+
 
     //    /**
     //     * Sample database connection for SQLite3.
