@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Library Management System</title>
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <!-- External CSS -->
     <link rel="stylesheet" href="home.css">
+    <script src="dynamicTitle.js"></script>
 </head>
 <body>
     <div class="header">
@@ -22,9 +22,9 @@
             <ul class="navbar-nav">
                 <li class="nav-item"><a class="nav-link" href="<?= base_url('/Home')?>">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="<?= base_url('/Catalog')?>">Catalog</a></li>
-                <li class="nav-item"><a class="nav-link" href="#checkouts">Checkouts</a></li>
-                <li class="nav-item"><a class="nav-link" href="#members">Members</a></li>
-                <li class="nav-item"><a class="nav-link" href="#reports">Reports</a></li>
+                <li class="nav-item"><a class="nav-link" href="<?= base_url('/Checkouts')?>">Checkouts</a></li>
+                <li class="nav-item"><a class="nav-link" href="<?= base_url('/Members')?>">Members</a></li>
+                <li class="nav-item"><a class="nav-link" href="<?= base_url('/Reports')?>">Reports</a></li>
                 <li class="nav-item"><a class="nav-link" href="<?= base_url('/addBook')?>">Add Book</a></li>
             </ul>
         </div>

@@ -3,6 +3,8 @@
             <h2>Welcome to the Library Management System</h2>
             <p>This application facilitates the collection, storage, and analysis of various types of data related to book checkouts, inventory management, member transactions, and equipment maintenance. By centralizing this information, the library system intends to optimize operational efficiency, enhance user services, and improve decision-making processes for library administrators and staff.</p>
         </div>
+        </div>
+    </div>
     <div class="footer">
         <p>Libraryworks.com --- "The library that works"</p>
     </div>
