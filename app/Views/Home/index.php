@@ -20,7 +20,7 @@
         </button>
         <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
             <ul class="navbar-nav">
-                <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="<?= base_url('/Home')?>">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="#catalog">Catalog</a></li>
                 <li class="nav-item"><a class="nav-link" href="#checkouts">Checkouts</a></li>
                 <li class="nav-item"><a class="nav-link" href="#inventory">Inventory</a></li>

@@ -11,7 +11,7 @@
 </head>
 <body>
     <div class="header">
-        <h1>Library Management System</h1>
+        <h1>LIBRARY WORKS</h1>
     </div>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="index.html">Library</a>
