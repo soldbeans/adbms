@@ -2,13 +2,12 @@
 
 namespace App\Controllers;
 
+use App\Models\BookModel;
+
 class Home extends BaseController
 {
     public function index(): string
     {
-        //$db = db_connect();
-        //$db->listTables();
-
         return view ('navbar') . view("Home/index");
     }
 
@@ -19,6 +18,10 @@ class Home extends BaseController
 
     public function Catalog(): string
     {
+        $model = new BookModel;
+
+        $data = $model ->findAll();
+        
         return view('navbar') . view("Catalog/index");
     }
 
