@@ -20,9 +20,9 @@ class Home extends BaseController
     {
         $model = new BookModel;
 
-        $data = $model ->findAll();
+        $data['books'] = $model ->findAll();
         
-        return view('navbar') . view("Catalog/index");
+        return view('navbar') . view("Catalog/index", $data);
     }
 
     public function Checkouts(): string

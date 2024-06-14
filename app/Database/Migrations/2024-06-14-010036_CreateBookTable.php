@@ -29,6 +29,11 @@ class CreateBookTable extends Migration
                 'null'              => false,
                 'constraint'        => 256,
             ],
+            'availability' => [
+                'type'              =>'ENUM',
+                'null'              => false,
+                'constraint'        => ['Available', 'Unavailable'],
+            ],
         ]);
 
         $this->forge->addPrimaryKey('book_id');
