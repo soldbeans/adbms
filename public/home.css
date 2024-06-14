@@ -27,15 +27,18 @@ body {
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
 .footer {
     background-color: #343a40;
     color: #fff;
     text-align: center;
     padding: 10px 0;
-    position: relative;
+    position: fixed;
     bottom: 0;
     width: 100%;
+    margin-top: auto;
 }
+
 .card-columns {
     column-count: 3;
 }

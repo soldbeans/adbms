@@ -5,6 +5,9 @@
         </div>
         </div>
     </div>
+    <div class="footer">
+        <p>Libraryworks.com --- "The library that works"</p>
+    </div>
 
     <!-- Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
