@@ -1,50 +1,47 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
     background-color: #f8f9fa;
-    margin: 0;
-    padding: 0;
 }
-
 .header {
-    text-align: center;
-    padding: 20px;
     background-color: #343a40;
-    color: white;
+    color: #fff;
+    padding: 15px 0;
+    text-align: center;
 }
-
 .navbar {
-    margin-bottom: 20px;
-}
-
-.nav-link {
-    color: rgb(107, 107, 107) !important;
-}
-
-.nav-link:hover {
     background-color: #495057;
 }
-
-.main {
-    padding: 20px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+.navbar a {
+    color: #fff !important;
 }
-
+.navbar a:hover {
+    background-color: #343a40;
+}
+.main {
+    padding: 40px 20px;
+}
 .section {
+    background-color: #fff;
+    padding: 20px;
     margin-bottom: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .footer {
-    text-align: center;
-    padding: 20px;
     background-color: #343a40;
-    color: white;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
     position: fixed;
     bottom: 0;
     width: 100%;
+    margin-top: auto;
 }
 
-.card-columns .card {
+.card-columns {
+    column-count: 3;
+}
+.card {
     margin-bottom: 20px;
 }
