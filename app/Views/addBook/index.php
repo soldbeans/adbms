@@ -1,26 +1,34 @@
-    <div class="container main">
-        <div class="section">
-            <h2>Add New Book</h2>
-            <form>
-                <div class="form-group">
-                    <label for="book-name">Book Name</label>
-                    <input type="text" class="form-control" id="book-name" name="book-name" required>
-                </div>
-                <div class="form-group">
-                    <label for="author-name">Author Name</label>
-                    <input type="text" class="form-control" id="author-name" name="author-name" required>
-                </div>
-                <div class="form-group">
-                    <label for="genre">Genre</label>
-                    <input type="text" class="form-control" id="genre" name="genre" required>
-                </div>
-                <div class="form-group">
-                    <label for="availability-stocks">Availability Stocks</label>
-                    <input type="number" class="form-control" id="availability-stocks" name="availability-stocks" required>
-                </div>
-                <button type="submit" class="btn btn-primary">Add Book</button>
-            </form>
+    <h2>Add a New Book</h2>
+    <?php if (isset($validation)): ?>
+        <div class="alert alert-danger">
+            <?= $validation->listErrors() ?>
         </div>
+    <?php endif; ?>
+
+    <form action="<?= base_url('/home/saveBook') ?>" method="post">
+        <div>
+            <label for="book_title">Book Title:</label>
+            <input type="text" name="book_title" value="<?= set_value('book_title') ?>" />
+        </div>
+        <div>
+            <label for="author">Author:</label>
+            <input type="text" name="author" value="<?= set_value('author') ?>" />
+        </div>
+        <div>
+            <label for="details">Details:</label>
+            <textarea name="details"><?= set_value('details') ?></textarea>
+        </div>
+        <div>
+            <label for="availability">Availability:</label>
+            <select name="availability">
+                <option value="Available" <?= set_select('availability', 'Available') ?>>Available</option>
+                <option value="Unavailable" <?= set_select('availability', 'Unavailable') ?>>Unavailable</option>
+            </select>
+        </div>
+        <div>
+            <button type="submit">Add Book</button>
+        </div>
+    </form>
     </div>
     <div class="footer">
         <p>Libraryworks.com --- "The library that works"</p>
