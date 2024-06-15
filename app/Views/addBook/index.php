@@ -8,15 +8,15 @@
     <form action="<?= base_url('/home/saveBook') ?>" method="post">
         <div>
             <label for="book_title">Book Title:</label>
-            <input type="text" name="book_title" value="<?= set_value('book_title') ?>" />
+            <input type="text" name="book_title" value="<?= set_value('book_title') ?>" required>
         </div>
         <div>
             <label for="author">Author:</label>
-            <input type="text" name="author" value="<?= set_value('author') ?>" />
+            <input type="text" name="author" value="<?= set_value('author') ?>" required>
         </div>
         <div>
             <label for="details">Details:</label>
-            <textarea name="details"><?= set_value('details') ?></textarea>
+            <textarea name="details" required><?= set_value('details') ?></textarea>
         </div>
         <div>
             <label for="availability">Availability:</label>

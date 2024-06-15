@@ -7,6 +7,7 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <!-- External CSS -->
     <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="<?= base_url('catalog.css') ?>">
     <script src="dynamicTitle.js"></script>
 </head>
 <body>
