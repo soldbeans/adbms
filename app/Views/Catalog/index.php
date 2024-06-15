@@ -1,47 +1,76 @@
-<link rel="stylesheet" href="<?= base_url('catalog.css') ?>">
-
 <div id="catalog" class="section">
-    <h2>Book Catalog</h2>
-    <div class="card-columns">
-        <?php if (!empty($books) && is_array($books)) : ?>
-            <?php foreach ($books as $book) : ?>
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title"><?= esc($book['book_title']); ?></h5>
-                        <h6 class="card-subtitle mb-2 text-muted"><?= esc($book['author']); ?></h6>
-                        <p class="card-text">Details: <?= esc($book['details']); ?></p>
-                        <p class="card-text">Availability: <?= esc($book['availability']); ?></p>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bookDetailsModal" data-title="<?= esc($book['book_title']); ?>" data-author="<?= esc($book['author']); ?>" data-details="<?= esc($book['details']); ?>" data-availability="<?= esc($book['availability']); ?>">
-                            More Details
-                        </button>
+        <h2>Book Catalog</h2>
+        <div class="card-columns">
+            <?php if (!empty($books) && is_array($books)) : ?>
+                <?php foreach ($books as $book) : ?>
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"><?= esc($book['book_title']); ?></h5>
+                            <h6 class="card-subtitle mb-2 text-muted"><?= esc($book['author']); ?></h6>
+                            <p class="card-text">Details: <?= esc($book['details']); ?></p>
+                            <p class="card-text">Availability: <?= esc($book['availability']); ?></p>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bookDetailsModal" data-id="<?= esc($book['book_id']); ?>" data-title="<?= esc($book['book_title']); ?>" data-author="<?= esc($book['author']); ?>" data-details="<?= esc($book['details']); ?>" data-availability="<?= esc($book['availability']); ?>">
+                                More Details
+                            </button>
+                            <button type="button" class="btn btn-danger delete-book" data-id="<?= esc($book['book_id']); ?>">
+                                Delete
+                            </button>
+                        </div>
                     </div>
-                </div>
-            <?php endforeach; ?>
-        <?php else : ?>
-            <p>No books found.</p>
-        <?php endif; ?>
+                <?php endforeach; ?>
+            <?php else : ?>
+                <p>No books found.</p>
+            <?php endif; ?>
+        </div>
     </div>
-</div>
 
-<!-- Modal for Book Details -->
-<div class="modal fade" id="bookDetailsModal" tabindex="-1" role="dialog" aria-labelledby="bookDetailsModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document"> <!-- Added modal-dialog-centered class -->
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="bookDetailsModalLabel">Book Details</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <h5 id="modal-book-title"></h5>
-                <h6 id="modal-book-author" class="text-muted"></h6>
-                <p id="modal-book-details"></p>
-                <p id="modal-book-availability"></p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    <!-- Modal for Book Details and Update -->
+    <div class="modal fade" id="bookDetailsModal" tabindex="-1" role="dialog" aria-labelledby="bookDetailsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="bookDetailsModalLabel">Book Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="updateBookForm" action="<?= base_url('Home/updateBook') ?>" method="post">
+                        <input type="hidden" name="book_id" id="modal-book-id">
+                        <div class="form-group">
+                            <label for="modal-book-title">Title</label>
+                            <input type="text" class="form-control" id="modal-book-title" name="book_title">
+                        </div>
+                        <div class="form-group">
+                            <label for="modal-book-author">Author</label>
+                            <input type="text" class="form-control" id="modal-book-author" name="author">
+                        </div>
+                        <div class="form-group">
+                            <label for="modal-book-details">Details</label>
+                            <textarea class="form-control" id="modal-book-details" name="details"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="modal-book-availability">Availability</label>
+                            <select class="form-control" id="modal-book-availability" name="availability">
+                                <option value="Available">Available</option>
+                                <option value="Unavailable">Unavailable</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
+
+    <!-- Include jQuery and Bootstrap JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- External JavaScript file -->
+    <script src="<?= base_url('js/bookDetails.js') ?>"></script>
+</body>
+</html>

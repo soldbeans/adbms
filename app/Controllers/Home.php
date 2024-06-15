@@ -83,5 +83,40 @@ class Home extends BaseController
             echo "<script>alert('Book was not added.');</script>";
             return view('navbar') . view('addBook/index');
         }
-    }     
+    }
+
+    public function updateBook()
+    {
+        $model = new BookModel();
+
+        $book_id = $this->request->getPost('book_id');
+        $data = [
+            'book_title' => $this->request->getPost('book_title'),
+            'author' => $this->request->getPost('author'),
+            'details' => $this->request->getPost('details'),
+            'availability' => $this->request->getPost('availability'),
+        ];
+
+        if ($model->update($book_id, $data)) {
+            return $this->response->setJSON(['status' => 'success']);
+        } else {
+            return $this->response->setJSON(['status' => 'error', 'message' => 'Failed to update book.']);
+        }
+    }
+    
+    public function deleteBook()
+    {
+        $bookId = $this->request->getPost('book_id');
+    
+        if ($bookId) {
+            $model = new BookModel();
+            if ($model->delete($bookId)) {
+                return $this->response->setJSON(['status' => 'success']);
+            } else {
+                return $this->response->setJSON(['status' => 'error', 'message' => 'Failed to delete book.']);
+            }
+        } else {
+            return $this->response->setJSON(['status' => 'error', 'message' => 'Invalid book ID.']);
+        }
+    }    
 }
