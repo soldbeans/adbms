@@ -16,14 +16,14 @@ class Home extends BaseController
         return view ('navbar') . view("Home/index");
     }
 
-    public function Catalog(): string
+    public function catalog()
     {
-        $model = new BookModel;
-
-        $data['books'] = $model ->findAll();
+        $model = new BookModel();
+        $data['books'] = $model->findAll();
         
-        return view('navbar') . view("Catalog/index", $data);
-    }
+        echo view('navbar');
+        echo view('catalog/index', $data);
+    }    
 
     public function Checkouts(): string
     {
@@ -60,7 +60,7 @@ class Home extends BaseController
         // Run validation
         if (!$validation->withRequest($this->request)->run()) {
             // If validation fails, return to the add book form with errors
-            return view('addBook/index', [
+            return view('navbar') . view('addBook/index', [
                 'validation' => $validation,
             ]);
         }
@@ -76,9 +76,12 @@ class Home extends BaseController
         ];
     
         // Insert data into the database using BookModel
-        $model->insert($data);
-    
-        // Redirect to the Catalog page after successful insertion
-        return redirect()->to('/Catalog');
-    }      
+        if ($model->insert($data)) {
+            // Redirect to the Catalog page after successful insertion
+            return redirect()->to('/Catalog');
+        } else {
+            echo "<script>alert('Book was not added.');</script>";
+            return view('navbar') . view('addBook/index');
+        }
+    }     
 }
