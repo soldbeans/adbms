@@ -6,6 +6,7 @@ $(document).ready(function () {
         var author = button.data('author');
         var details = button.data('details');
         var availability = button.data('availability');
+        var image = button.data('image');
 
         var modal = $(this);
         modal.find('#modal-book-id').val(bookId);
@@ -13,15 +14,25 @@ $(document).ready(function () {
         modal.find('#modal-book-author').val(author);
         modal.find('#modal-book-details').val(details);
         modal.find('#modal-book-availability').val(availability);
+
+        if (image) {
+            modal.find('#modal-book-image-preview').attr('src', image).show();
+        } else {
+            modal.find('#modal-book-image-preview').hide();
+        }
     });
 
     $('#updateBookForm').on('submit', function (event) {
         event.preventDefault();
 
+        var formData = new FormData(this);
+
         $.ajax({
             type: 'POST',
             url: $(this).attr('action'),
-            data: $(this).serialize(),
+            data: formData,
+            contentType: false,
+            processData: false,
             success: function (response) {
                 if (response.status === 'success') {
                     alert('Book updated successfully.');
@@ -37,7 +48,6 @@ $(document).ready(function () {
         });
     });
 
-    // Unbind any existing event handlers before binding to avoid multiple bindings
     $(document).off('click', '.delete-book').on('click', '.delete-book', function () {
         var bookId = $(this).data('id');
         if (confirm('Are you sure you want to delete this book?')) {
