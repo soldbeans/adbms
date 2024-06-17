@@ -98,24 +98,22 @@ class Home extends BaseController
     public function updateBook()
     {
         helper(['form']);
-    
+        
         $validation = \Config\Services::validation();
         
-        // Validate form inputs
         $validation->setRules([
             'book_id' => 'required',
             'book_title' => 'required|min_length[3]|max_length[128]',
             'author' => 'required|min_length[3]|max_length[128]',
             'details' => 'required|max_length[256]',
             'availability' => 'required|in_list[Available,Unavailable]',
-            'image' => 'uploaded[image]|max_size[image,4096]|is_image[image]|mime_in[image,image/jpg,image/jpeg,image/png]',
+            'image' => 'max_size[image,4096]|is_image[image]|mime_in[image,image/jpg,image/jpeg,image/png]',
         ]);
     
         if (!$validation->withRequest($this->request)->run()) {
             return redirect()->back()->withInput()->with('validation', $validation);
         }
     
-        // Get book ID and existing book data
         $bookId = $this->request->getPost('book_id');
         $model = new BookModel();
         $book = $model->find($bookId);
@@ -124,7 +122,6 @@ class Home extends BaseController
             return $this->response->setJSON(['status' => 'error', 'message' => 'Book not found.']);
         }
     
-        // Update other book details
         $data = [
             'book_title' => $this->request->getPost('book_title'),
             'author' => $this->request->getPost('author'),
@@ -132,35 +129,23 @@ class Home extends BaseController
             'availability' => $this->request->getPost('availability'),
         ];
     
-        // Handle image upload if a new image is provided
         $file = $this->request->getFile('image');
         if ($file && $file->isValid() && !$file->hasMoved()) {
-            // Move uploaded file to directory
-            $newName = $file->getRandomName();
-            $file->move(WRITEPATH . 'uploads', $newName);
-    
-            // Remove old image if updating with new image
-            if ($book['image'] && file_exists(WRITEPATH . 'uploads/' . $book['image'])) {
-                unlink(WRITEPATH . 'uploads/' . $book['image']);
-            }
-    
-            // Update data with new image name
-            $data['image'] = $newName;
+            $imageData = file_get_contents($file->getTempName());
+            $data['image'] = $imageData;
         }
     
-        // Update book record in database
         if ($model->update($bookId, $data)) {
-            // Prepare response with updated image path or data
             $responseData = [
                 'status' => 'success',
-                'image' => base_url('uploads/' . $data['image']) // Return the new image URL
+                'image' => !empty($data['image']) ? 'data:image/jpeg;base64,' . base64_encode($data['image']) : ''
             ];
         } else {
             $responseData = ['status' => 'error', 'message' => 'Failed to update book.'];
         }
     
         return $this->response->setJSON($responseData);
-    }        
+    }      
     
     public function deleteBook()
     {

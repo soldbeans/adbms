@@ -1,5 +1,4 @@
 $(document).ready(function () {
-    // Function to handle the modal display
     $('#bookDetailsModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget);
         var bookId = button.data('id');
@@ -19,17 +18,14 @@ $(document).ready(function () {
         if (image) {
             modal.find('#modal-book-image-preview').attr('src', image).show();
         } else {
-            modal.find('#modal-book-image-preview').attr('src', '').hide(); // Clear src and hide if no image available
+            modal.find('#modal-book-image-preview').attr('src', '').hide();
         }
     });
 
-    // Handle form submission for updating book details via AJAX
     $('#updateBookForm').on('submit', function (event) {
         event.preventDefault();
 
         var formData = new FormData(this);
-
-        // Append the existing book ID to formData
         formData.append('book_id', $('#modal-book-id').val());
 
         $.ajax({
@@ -42,7 +38,7 @@ $(document).ready(function () {
                 if (response.status === 'success') {
                     alert('Book updated successfully.');
                     $('#bookDetailsModal').modal('hide');
-                    location.reload(); // Reload the page to reflect changes
+                    location.reload();
                 } else {
                     alert('Failed to update book.');
                 }
@@ -53,7 +49,6 @@ $(document).ready(function () {
         });
     });
 
-    // Handle click event for deleting a book via AJAX
     $(document).off('click', '.delete-book').on('click', '.delete-book', function () {
         var bookId = $(this).data('id');
         if (confirm('Are you sure you want to delete this book?')) {
@@ -64,7 +59,7 @@ $(document).ready(function () {
                 success: function (response) {
                     if (response.status === 'success') {
                         alert('Book deleted successfully.');
-                        location.reload(); // Reload the page to reflect changes
+                        location.reload();
                     } else {
                         alert('Failed to delete book.');
                     }

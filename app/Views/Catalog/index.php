@@ -74,17 +74,16 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="modal-book-image">Book Image</label>
-                            <input type="file" class="form-control" id="modal-book-image" name="image">
+                            <label for="modal-book-image">Image</label>
+                            <input type="file" class="form-control" id="modal-book-image" name="image" accept="image/*">
                         </div>
                     </div>
-                    <div class="flex-shrink-0">
-                        <!-- Image preview -->
+                    <div class="flex-fill ml-3">
                         <img id="modal-book-image-preview" src="" alt="Book Image" class="img-fluid">
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    <button type="submit" class="btn btn-primary">Update</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </form>
