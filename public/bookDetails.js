@@ -25,8 +25,8 @@ $(document).ready(function () {
         }
     });
 
-    // Function to handle the update form submission
-    $('#updateBookForm').on('submit', function (event) {
+    // Ensure previous click handlers are removed before adding new ones
+    $('#updateBookForm').off('submit').on('submit', function (event) {
         event.preventDefault();
 
         var formData = new FormData(this);
@@ -52,8 +52,8 @@ $(document).ready(function () {
         });
     });
 
-    // Function to handle book deletion
-    $(document).on('click', '.delete-book', function () {
+    // Ensure previous click handlers are removed before adding new ones
+    $(document).off('click', '.delete-book').on('click', '.delete-book', function () {
         var bookId = $(this).data('id');
         if (confirm('Are you sure you want to delete this book?')) {
             $.ajax({
