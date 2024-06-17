@@ -5,7 +5,6 @@ function setPageTitle(pageTitle) {
     document.title = `${pageTitle} - Library Management System`;
 }
 
-// Example: Set title based on current page or URL
 // Replace with actual logic based on your application
 let currentPage = window.location.pathname;  // Example: /Home, /Catalog, etc.
 switch (currentPage) {

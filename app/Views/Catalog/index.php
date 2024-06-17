@@ -9,7 +9,12 @@
                         <h6 class="card-subtitle mb-2 text-muted"><?= esc($book['author']); ?></h6>
                         <p class="card-text">Details: <?= esc($book['details']); ?></p>
                         <p class="card-text">Availability: <?= esc($book['availability']); ?></p>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bookDetailsModal" data-id="<?= esc($book['book_id']); ?>" data-title="<?= esc($book['book_title']); ?>" data-author="<?= esc($book['author']); ?>" data-details="<?= esc($book['details']); ?>" data-availability="<?= esc($book['availability']); ?>" data-image="<?= base_url('uploads/' . esc($book['image'])); ?>">
+                        <?php if (!empty($book['image'])) : ?>
+                            <img src="data:image/jpeg;base64,<?= $book['image']; ?>" alt="<?= esc($book['book_title']); ?>" class="img-fluid">
+                        <?php else : ?>
+                            <p>No image available</p>
+                        <?php endif; ?>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bookDetailsModal" data-id="<?= esc($book['book_id']); ?>" data-title="<?= esc($book['book_title']); ?>" data-author="<?= esc($book['author']); ?>" data-details="<?= esc($book['details']); ?>" data-availability="<?= esc($book['availability']); ?>" data-image="<?= !empty($book['image']) ? 'data:image/jpeg;base64,' . $book['image'] : ''; ?>">
                             More Details
                         </button>
                         <button type="button" class="btn btn-danger delete-book" data-id="<?= esc($book['book_id']); ?>">
@@ -23,6 +28,9 @@
         <?php endif; ?>
     </div>
 </div>
+
+<!-- Include your JavaScript file -->
+<script src="<?= base_url('js/bookDetails.js'); ?>"></script>
 
 <!-- Modal for Book Details and Update -->
 <div class="modal fade" id="bookDetailsModal" tabindex="-1" role="dialog" aria-labelledby="bookDetailsModalLabel" aria-hidden="true">
@@ -65,7 +73,7 @@
                     </form>
                 </div>
                 <div class="flex-shrink-0">
-                    <img id="modal-book-image-preview" src="" alt="Book Image" class="img-fluid">
+                    <img id="modal-book-image-preview" src="" alt="Book Image" class="img-fluid" style="max-height: 200px;">
                 </div>
             </div>
             <div class="modal-footer">
@@ -74,6 +82,7 @@
         </div>
     </div>
 </div>
+
 
 <!-- Include jQuery and Bootstrap JavaScript -->
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>

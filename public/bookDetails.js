@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    // Function to handle the modal display
     $('#bookDetailsModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget);
         var bookId = button.data('id');
@@ -8,6 +9,8 @@ $(document).ready(function () {
         var availability = button.data('availability');
         var image = button.data('image');
 
+        console.log('Image URL:', image); // Check if image URL is correctly fetched
+        
         var modal = $(this);
         modal.find('#modal-book-id').val(bookId);
         modal.find('#modal-book-title').val(title);
@@ -18,10 +21,11 @@ $(document).ready(function () {
         if (image) {
             modal.find('#modal-book-image-preview').attr('src', image).show();
         } else {
-            modal.find('#modal-book-image-preview').hide();
+            modal.find('#modal-book-image-preview').attr('src', '').hide(); // Clear src and hide if no image available
         }
     });
 
+    // Function to handle the update form submission
     $('#updateBookForm').on('submit', function (event) {
         event.preventDefault();
 
@@ -48,7 +52,8 @@ $(document).ready(function () {
         });
     });
 
-    $(document).off('click', '.delete-book').on('click', '.delete-book', function () {
+    // Function to handle book deletion
+    $(document).on('click', '.delete-book', function () {
         var bookId = $(this).data('id');
         if (confirm('Are you sure you want to delete this book?')) {
             $.ajax({
