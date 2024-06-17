@@ -2,24 +2,30 @@ body {
     font-family: 'Arial', sans-serif;
     background-color: #f8f9fa;
 }
+
 .header {
     background-color: #343a40;
     color: #fff;
     padding: 15px 0;
     text-align: center;
 }
+
 .navbar {
     background-color: #495057;
 }
+
 .navbar a {
     color: #fff !important;
 }
+
 .navbar a:hover {
     background-color: #343a40;
 }
+
 .main {
     padding: 40px 20px;
 }
+
 .section {
     background-color: #fff;
     padding: 20px;
@@ -42,9 +48,29 @@ body {
 .card-columns {
     column-count: 3;
 }
+
 .card {
     margin-bottom: 20px;
 }
+
+.card-body {
+    padding-bottom: 1.25rem; /* Adjust padding if needed */
+}
+
+.book-image-container {
+    height: 100%; /* Ensure container takes full height of column */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-left: 1px solid #e9ecef; /* Optional: Border between columns */
+}
+
+.book-image-container img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; /* Ensures image fits within container */
+}
+
 .modal-dialog-centered {
     display: flex;
     align-items: center;

@@ -9,8 +9,6 @@ $(document).ready(function () {
         var availability = button.data('availability');
         var image = button.data('image');
 
-        console.log('Image URL:', image); // Check if image URL is correctly fetched
-        
         var modal = $(this);
         modal.find('#modal-book-id').val(bookId);
         modal.find('#modal-book-title').val(title);
@@ -25,11 +23,14 @@ $(document).ready(function () {
         }
     });
 
-    // Ensure previous click handlers are removed before adding new ones
-    $('#updateBookForm').off('submit').on('submit', function (event) {
+    // Handle form submission for updating book details via AJAX
+    $('#updateBookForm').on('submit', function (event) {
         event.preventDefault();
 
         var formData = new FormData(this);
+
+        // Append the existing book ID to formData
+        formData.append('book_id', $('#modal-book-id').val());
 
         $.ajax({
             type: 'POST',
@@ -52,7 +53,7 @@ $(document).ready(function () {
         });
     });
 
-    // Ensure previous click handlers are removed before adding new ones
+    // Handle click event for deleting a book via AJAX
     $(document).off('click', '.delete-book').on('click', '.delete-book', function () {
         var bookId = $(this).data('id');
         if (confirm('Are you sure you want to delete this book?')) {

@@ -5,21 +5,29 @@
             <?php foreach ($books as $book) : ?>
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title"><?= esc($book['book_title']); ?></h5>
-                        <h6 class="card-subtitle mb-2 text-muted"><?= esc($book['author']); ?></h6>
-                        <p class="card-text">Details: <?= esc($book['details']); ?></p>
-                        <p class="card-text">Availability: <?= esc($book['availability']); ?></p>
-                        <?php if (!empty($book['image'])) : ?>
-                            <img src="data:image/jpeg;base64,<?= $book['image']; ?>" alt="<?= esc($book['book_title']); ?>" class="img-fluid">
-                        <?php else : ?>
-                            <p>No image available</p>
-                        <?php endif; ?>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bookDetailsModal" data-id="<?= esc($book['book_id']); ?>" data-title="<?= esc($book['book_title']); ?>" data-author="<?= esc($book['author']); ?>" data-details="<?= esc($book['details']); ?>" data-availability="<?= esc($book['availability']); ?>" data-image="<?= !empty($book['image']) ? 'data:image/jpeg;base64,' . $book['image'] : ''; ?>">
-                            More Details
-                        </button>
-                        <button type="button" class="btn btn-danger delete-book" data-id="<?= esc($book['book_id']); ?>">
-                            Delete
-                        </button>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <h5 class="card-title"><?= esc($book['book_title']); ?></h5>
+                                <h6 class="card-subtitle mb-2 text-muted"><?= esc($book['author']); ?></h6>
+                                <p class="card-text">Details: <?= esc($book['details']); ?></p>
+                                <p class="card-text">Availability: <?= esc($book['availability']); ?></p>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bookDetailsModal" data-id="<?= esc($book['book_id']); ?>" data-title="<?= esc($book['book_title']); ?>" data-author="<?= esc($book['author']); ?>" data-details="<?= esc($book['details']); ?>" data-availability="<?= esc($book['availability']); ?>" data-image="<?= !empty($book['image']) ? 'data:image/jpeg;base64,' . $book['image'] : ''; ?>">
+                                    More Details
+                                </button>
+                                <button type="button" class="btn btn-danger delete-book" data-id="<?= esc($book['book_id']); ?>">
+                                    Delete
+                                </button>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="book-image-container">
+                                    <?php if (!empty($book['image'])) : ?>
+                                        <img src="data:image/jpeg;base64,<?= $book['image']; ?>" alt="<?= esc($book['book_title']); ?>" class="img-fluid book-image">
+                                    <?php else : ?>
+                                        <p>No image available</p>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             <?php endforeach; ?>
@@ -42,10 +50,10 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body d-flex">
-                <div class="flex-fill mr-3">
-                    <form id="updateBookForm" action="<?= base_url('Home/updateBook') ?>" method="post" enctype="multipart/form-data">
-                        <input type="hidden" name="book_id" id="modal-book-id">
+            <form id="updateBookForm" action="<?= base_url('Home/updateBook') ?>" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="book_id" id="modal-book-id">
+                <div class="modal-body d-flex">
+                    <div class="flex-fill mr-3">
                         <div class="form-group">
                             <label for="modal-book-title">Title</label>
                             <input type="text" class="form-control" id="modal-book-title" name="book_title">
@@ -69,20 +77,20 @@
                             <label for="modal-book-image">Book Image</label>
                             <input type="file" class="form-control" id="modal-book-image" name="image">
                         </div>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
-                    </form>
+                    </div>
+                    <div class="flex-shrink-0">
+                        <!-- Image preview -->
+                        <img id="modal-book-image-preview" src="" alt="Book Image" class="img-fluid">
+                    </div>
                 </div>
-                <div class="flex-shrink-0">
-                    <img id="modal-book-image-preview" src="" alt="Book Image" class="img-fluid" style="max-height: 200px;">
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
+            </form>
         </div>
     </div>
 </div>
-
 
 <!-- Include jQuery and Bootstrap JavaScript -->
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
