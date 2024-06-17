@@ -1,0 +1,84 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+}
+
+.header {
+    background-color: #343a40;
+    color: #fff;
+    padding: 15px 0;
+    text-align: center;
+}
+
+.navbar {
+    background-color: #495057;
+}
+
+.navbar a {
+    color: #fff !important;
+}
+
+.navbar a:hover {
+    background-color: #343a40;
+}
+
+.main {
+    padding: 40px 20px;
+}
+
+.section {
+    background-color: #fff;
+    padding: 20px;
+    margin-bottom: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.footer {
+    background-color: #343a40;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    margin-top: auto;
+}
+
+.card-columns {
+    column-count: 3;
+}
+
+.card {
+    margin-bottom: 20px;
+}
+
+.card-body {
+    padding-bottom: 1.25rem; /* Adjust padding if needed */
+}
+
+.book-image-container {
+    height: 100%; /* Ensure container takes full height of column */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-left: 1px solid #e9ecef; /* Optional: Border between columns */
+}
+
+.book-image-container img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; /* Ensures image fits within container */
+}
+
+.modal-dialog-centered {
+    display: flex;
+    align-items: center;
+    min-height: calc(100% - 1rem);
+}
+
+.modal-dialog-centered::before {
+    display: block;
+    height: calc(100vh - 1rem);
+    content: "";
+}
