@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\BookModel;
+use App\Models\MembersModel;
 
 class Home extends BaseController
 {
@@ -39,9 +40,15 @@ class Home extends BaseController
         return view('navbar') . view("Checkouts/index");
     }
 
-    public function Members(): string
+    public function Members()
     {
-        return view('navbar') . view("Members/index");
+        helper(['form']);
+        
+        $membersModel = new MembersModel();
+        $data['members'] = $membersModel->findAll();
+    
+        echo view('navbar');
+        echo view('Members/index', $data);
     }
 
     public function Reports(): string
@@ -161,5 +168,42 @@ class Home extends BaseController
         } else {
             return $this->response->setJSON(['status' => 'error', 'message' => 'Invalid book ID.']);
         }
-    }    
+    }
+    public function addMember()
+    {
+        helper(['form']);
+        $validation = \Config\Services::validation();
+    
+        $validation->setRules([
+            'first_name' => 'required|min_length[2]|max_length[50]',
+            'last_name' => 'required|min_length[2]|max_length[50]',
+            'email' => 'required|valid_email|max_length[100]',
+            'phone_number' => 'required|min_length[10]|max_length[15]'
+        ]);
+    
+        if (!$validation->withRequest($this->request)->run()) {
+            return view('navbar') . view('Members/index', [
+                'validation' => $validation,
+                'members' => (new MembersModel())->findAll()
+            ]);
+        }
+    
+        $model = new MembersModel();
+        $data = [
+            'first_name' => $this->request->getPost('first_name'),
+            'last_name' => $this->request->getPost('last_name'),
+            'email' => $this->request->getPost('email'),
+            'phone_number' => $this->request->getPost('phone_number'),
+        ];
+    
+        if ($model->insert($data)) {
+            return redirect()->to('/Members');
+        } else {
+            echo "<script>alert('Member was not added.');</script>";
+            return view('navbar') . view('Members/index', [
+                'validation' => $validation,
+                'members' => $model->findAll()
+            ]);
+        }
+    }
 }
