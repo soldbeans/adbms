@@ -206,4 +206,65 @@ class Home extends BaseController
             return redirect()->back()->withInput()->with('error', 'Failed to add member');
         }
     }
+    public function updateMember($memberId = null)
+    {
+        helper(['form']);
+    
+        // Validation rules
+        $validation = \Config\Services::validation();
+        $validation->setRules([
+            'member_id' => 'required',
+            'first_name' => 'required|min_length[2]|max_length[100]',
+            'last_name' => 'required|min_length[2]|max_length[100]',
+            'email' => 'required|valid_email|max_length[100]',
+            'phone_number' => 'required|max_length[15]',
+            'password' => 'permit_empty|min_length[8]|max_length[255]', // Allow empty password or validate if provided
+            'status' => 'required|in_list[no violations,penalized,banned]',
+        ]);
+    
+        if (!$validation->withRequest($this->request)->run()) {
+            return redirect()->back()->withInput()->with('validation', $validation);
+        }
+    
+        // Retrieve member data from POST
+        $data = [
+            'first_name' => $this->request->getPost('first_name'),
+            'last_name' => $this->request->getPost('last_name'),
+            'email' => $this->request->getPost('email'),
+            'phone_number' => $this->request->getPost('phone_number'),
+            'status' => $this->request->getPost('status'),
+        ];
+    
+        // Update password only if provided
+        $password = $this->request->getPost('password');
+        if (!empty($password)) {
+            $data['password'] = $password;
+        }
+    
+        // Update member in database
+        $model = new MembersModel();
+        if ($model->update($memberId, $data)) {
+            $responseData = ['status' => 'success'];
+        } else {
+            $responseData = ['status' => 'error', 'message' => 'Failed to update member.'];
+        }
+    
+        return $this->response->setJSON($responseData);
+    }    
+
+    public function deleteMember()
+    {
+        $memberId = $this->request->getPost('member_id');
+
+        if ($memberId) {
+            $model = new MembersModel();
+            if ($model->delete($memberId)) {
+                return $this->response->setJSON(['status' => 'success']);
+            } else {
+                return $this->response->setJSON(['status' => 'error', 'message' => 'Failed to delete member.']);
+            }
+        } else {
+            return $this->response->setJSON(['status' => 'error', 'message' => 'Invalid member ID.']);
+        }
+    }
 }
