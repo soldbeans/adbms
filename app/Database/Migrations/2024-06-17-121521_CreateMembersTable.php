@@ -18,36 +18,42 @@ class CreateMembersTable extends Migration
             'first_name' => [
                 'type' => 'VARCHAR',
                 'constraint' => '100',
+                'null' => false,
             ],
             'last_name' => [
                 'type' => 'VARCHAR',
                 'constraint' => '100',
+                'null' => false,
             ],
             'email' => [
                 'type' => 'VARCHAR',
                 'constraint' => '100',
                 'unique' => true,
+                'null' => false,
             ],
             'phone_number' => [
                 'type'       => 'VARCHAR',
                 'constraint' => '15',
+                'null' => false,
             ],
             'password' => [
                 'type' => 'VARCHAR',
                 'constraint' => '255',
+                'null' => false,
             ],
             'status' => [
                 'type' => 'ENUM',
                 'constraint' => ['no violations', 'penalized', 'banned'],
                 'default' => 'no violations',
+                'null' => false,
             ],
             'created_at' => [
                 'type' => 'DATETIME',
-                'null' => true,
+                'null' => false,
             ],
             'updated_at' => [
                 'type' => 'DATETIME',
-                'null' => true,
+                'null' => false,
             ],
         ]);
 

@@ -24,6 +24,7 @@ $routes->post('/Home/deleteBook', 'Home::deleteBook');
 
 // New routes for member management
 $routes->get('/addMember', 'Home::addMember'); // Form to add new member
+$routes->post('/Home/addMember', 'Home::addMember');//Add new member
 $routes->post('/saveMember', 'Home::saveMember'); // Save new member
 $routes->post('/deleteMember', 'Home::deleteMember'); // Delete member
 

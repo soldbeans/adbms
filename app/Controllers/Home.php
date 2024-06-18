@@ -43,7 +43,7 @@ class Home extends BaseController
     public function Members()
     {
         helper(['form']);
-        
+
         $membersModel = new MembersModel();
         $data['members'] = $membersModel->findAll();
     
@@ -172,38 +172,38 @@ class Home extends BaseController
     public function addMember()
     {
         helper(['form']);
+
         $validation = \Config\Services::validation();
-    
         $validation->setRules([
-            'first_name' => 'required|min_length[2]|max_length[50]',
-            'last_name' => 'required|min_length[2]|max_length[50]',
-            'email' => 'required|valid_email|max_length[100]',
-            'phone_number' => 'required|min_length[10]|max_length[15]'
+            'first_name' => 'required|min_length[2]|max_length[100]',
+            'last_name' => 'required|min_length[2]|max_length[100]',
+            'email' => 'required|valid_email|max_length[100]|is_unique[members.email]',
+            'phone_number' => 'required|max_length[15]',
+            'password' => 'required|min_length[8]|max_length[255]',
+            'status' => 'required|in_list[no violations,penalized,banned]',
         ]);
-    
+
         if (!$validation->withRequest($this->request)->run()) {
-            return view('navbar') . view('Members/index', [
+            return view('members/index', [
                 'validation' => $validation,
-                'members' => (new MembersModel())->findAll()
             ]);
         }
-    
+
         $model = new MembersModel();
+
         $data = [
             'first_name' => $this->request->getPost('first_name'),
             'last_name' => $this->request->getPost('last_name'),
             'email' => $this->request->getPost('email'),
             'phone_number' => $this->request->getPost('phone_number'),
+            'password' => $this->request->getPost('password'),
+            'status' => $this->request->getPost('status'),
         ];
-    
-        if ($model->insert($data)) {
-            return redirect()->to('/Members');
+
+        if ($model->save($data)) {
+            return redirect()->to('/Members')->with('success', 'Member added successfully');
         } else {
-            echo "<script>alert('Member was not added.');</script>";
-            return view('navbar') . view('Members/index', [
-                'validation' => $validation,
-                'members' => $model->findAll()
-            ]);
+            return redirect()->back()->withInput()->with('error', 'Failed to add member');
         }
     }
 }

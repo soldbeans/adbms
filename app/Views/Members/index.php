@@ -32,11 +32,23 @@
                 <label for="phone_number">Phone Number</label>
                 <input type="text" class="form-control" id="phone_number" name="phone_number" value="<?= set_value('phone_number') ?>">
             </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" name="password">
+            </div>
+            <div class="form-group">
+                <label for="status">Status</label>
+                <select class="form-control" id="status" name="status">
+                    <option value="no violations" <?= set_select('status', 'no violations') ?>>No Violations</option>
+                    <option value="penalized" <?= set_select('status', 'penalized') ?>>Penalized</option>
+                    <option value="banned" <?= set_select('status', 'banned') ?>>Banned</option>
+                </select>
+            </div>
             <button type="submit" class="btn btn-primary">Add Member</button>
         </form>
 
         <h3 class="mt-5">Existing Members</h3>
-        <table class="table table-striped">
+        <table class="table table-bordered">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -44,6 +56,8 @@
                     <th>Last Name</th>
                     <th>Email</th>
                     <th>Phone Number</th>
+                    <th>Created At</th>
+                    <th>Updated At</th>
                     <th>Status</th>
                 </tr>
             </thead>
@@ -56,12 +70,14 @@
                             <td><?= esc($member['last_name']) ?></td>
                             <td><?= esc($member['email']) ?></td>
                             <td><?= esc($member['phone_number']) ?></td>
+                            <td><?= esc($member['created_at']) ?></td>
+                            <td><?= esc($member['updated_at']) ?></td>
                             <td><?= esc($member['status']) ?></td>
                         </tr>
                     <?php endforeach; ?>
                 <?php else: ?>
                     <tr>
-                        <td colspan="6">No members found.</td>
+                        <td colspan="8">No members found.</td>
                     </tr>
                 <?php endif; ?>
             </tbody>
