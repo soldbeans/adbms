@@ -33,4 +33,6 @@ $routes->post('/Home/addMember', 'Home::addMember');//Add new member
 $routes->post('/saveMember', 'Home::saveMember'); // Save new member
 $routes->post('updateMember', 'Home::updateMember');
 $routes->post('/deleteMember', 'Home::deleteMember'); // Delete member
+$routes->get('/Home/getMemberDetails/(:num)', 'Home::getMemberDetails/$1');
+
 
