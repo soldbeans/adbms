@@ -82,3 +82,27 @@ body {
     height: calc(100vh - 1rem);
     content: "";
 }
+
+.image-container {
+    width: 100%;
+    height: 0;
+    padding-bottom: 75%; /* Adjust the percentage to change the aspect ratio */
+    position: relative;
+    overflow: hidden;
+    background-color: #f0f0f0;
+}
+
+.image-container img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: auto;
+    height: 100%;
+    transform: translate(-50%, -50%);
+}
+
+@media (max-width: 576px) {
+    .modal-dialog {
+        max-width: 90%;
+    }
+}

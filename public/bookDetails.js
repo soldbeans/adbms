@@ -22,11 +22,18 @@ $(document).ready(function () {
         }
     });
 
+    $('#modal-book-image').on('change', function (event) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $('#modal-book-image-preview').attr('src', e.target.result).show();
+        }
+        reader.readAsDataURL(event.target.files[0]);
+    });
+
     $('#updateBookForm').on('submit', function (event) {
         event.preventDefault();
 
         var formData = new FormData(this);
-        formData.append('book_id', $('#modal-book-id').val());
 
         $.ajax({
             type: 'POST',
@@ -38,7 +45,7 @@ $(document).ready(function () {
                 if (response.status === 'success') {
                     alert('Book updated successfully.');
                     $('#bookDetailsModal').modal('hide');
-                    location.reload();
+                    location.reload(); // Reload the page to reflect changes
                 } else {
                     alert('Failed to update book.');
                 }
@@ -59,7 +66,7 @@ $(document).ready(function () {
                 success: function (response) {
                     if (response.status === 'success') {
                         alert('Book deleted successfully.');
-                        location.reload();
+                        location.reload(); // Reload the page to reflect changes
                     } else {
                         alert('Failed to delete book.');
                     }

@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\BookModel;
+use App\Models\MembersModel;
 
 class Home extends BaseController
 {
@@ -39,9 +40,15 @@ class Home extends BaseController
         return view('navbar') . view("Checkouts/index");
     }
 
-    public function Members(): string
+    public function Members()
     {
-        return view('navbar') . view("Members/index");
+        helper(['form']);
+
+        $membersModel = new MembersModel();
+        $data['members'] = $membersModel->findAll();
+    
+        echo view('navbar');
+        echo view('Members/index', $data);
     }
 
     public function Reports(): string
@@ -161,5 +168,103 @@ class Home extends BaseController
         } else {
             return $this->response->setJSON(['status' => 'error', 'message' => 'Invalid book ID.']);
         }
+    }
+    public function addMember()
+    {
+        helper(['form']);
+
+        $validation = \Config\Services::validation();
+        $validation->setRules([
+            'first_name' => 'required|min_length[2]|max_length[100]',
+            'last_name' => 'required|min_length[2]|max_length[100]',
+            'email' => 'required|valid_email|max_length[100]|is_unique[members.email]',
+            'phone_number' => 'required|max_length[15]',
+            'password' => 'required|min_length[8]|max_length[255]',
+            'status' => 'required|in_list[no violations,penalized,banned]',
+        ]);
+
+        if (!$validation->withRequest($this->request)->run()) {
+            return view('members/index', [
+                'validation' => $validation,
+            ]);
+        }
+
+        $model = new MembersModel();
+
+        $data = [
+            'first_name' => $this->request->getPost('first_name'),
+            'last_name' => $this->request->getPost('last_name'),
+            'email' => $this->request->getPost('email'),
+            'phone_number' => $this->request->getPost('phone_number'),
+            'password' => $this->request->getPost('password'),
+            'status' => $this->request->getPost('status'),
+        ];
+
+        if ($model->save($data)) {
+            return redirect()->to('/Members')->with('success', 'Member added successfully');
+        } else {
+            return redirect()->back()->withInput()->with('error', 'Failed to add member');
+        }
+    }
+    public function updateMember($memberId = null)
+    {
+        helper(['form']);
+    
+        // Validation rules
+        $validation = \Config\Services::validation();
+        $validation->setRules([
+            'member_id' => 'required',
+            'first_name' => 'required|min_length[2]|max_length[100]',
+            'last_name' => 'required|min_length[2]|max_length[100]',
+            'email' => 'required|valid_email|max_length[100]',
+            'phone_number' => 'required|max_length[15]',
+            'password' => 'permit_empty|min_length[8]|max_length[255]', // Allow empty password or validate if provided
+            'status' => 'required|in_list[no violations,penalized,banned]',
+        ]);
+    
+        if (!$validation->withRequest($this->request)->run()) {
+            return redirect()->back()->withInput()->with('validation', $validation);
+        }
+    
+        // Retrieve member data from POST
+        $data = [
+            'first_name' => $this->request->getPost('first_name'),
+            'last_name' => $this->request->getPost('last_name'),
+            'email' => $this->request->getPost('email'),
+            'phone_number' => $this->request->getPost('phone_number'),
+            'status' => $this->request->getPost('status'),
+        ];
+    
+        // Update password only if provided
+        $password = $this->request->getPost('password');
+        if (!empty($password)) {
+            $data['password'] = $password;
+        }
+    
+        // Update member in database
+        $model = new MembersModel();
+        if ($model->update($memberId, $data)) {
+            $responseData = ['status' => 'success'];
+        } else {
+            $responseData = ['status' => 'error', 'message' => 'Failed to update member.'];
+        }
+    
+        return $this->response->setJSON($responseData);
     }    
+
+    public function deleteMember()
+    {
+        $memberId = $this->request->getPost('member_id');
+
+        if ($memberId) {
+            $model = new MembersModel();
+            if ($model->delete($memberId)) {
+                return $this->response->setJSON(['status' => 'success']);
+            } else {
+                return $this->response->setJSON(['status' => 'error', 'message' => 'Failed to delete member.']);
+            }
+        } else {
+            return $this->response->setJSON(['status' => 'error', 'message' => 'Invalid member ID.']);
+        }
+    }
 }

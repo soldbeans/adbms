@@ -79,7 +79,9 @@
                         </div>
                     </div>
                     <div class="flex-fill ml-3">
-                        <img id="modal-book-image-preview" src="" alt="Book Image" class="img-fluid">
+                        <div class="book-image-container">
+                            <img id="modal-book-image-preview" src="" alt="Book Image" class="img-fluid book-image">
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
