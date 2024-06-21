@@ -11,10 +11,20 @@ $(document).ready(function() {
             $.ajax({
                 url: '/Home/getMemberDetails/' + memberId,
                 method: 'GET',
-                dataType: 'html',
+                dataType: 'json',
                 success: function(response) {
-                    detailsRow.find('.member-details').html(response);
-                    detailsRow.show();
+                    if (response.status === 'success') {
+                        var member = response.member;
+                        var memberDetailsHtml = '<p>Email: ' + member.email + '</p>' +
+                                                '<p>Phone Number: ' + member.phone_number + '</p>' +
+                                                '<p>Status: ' + member.status + '</p>' +
+                                                '<p>Created At: ' + member.created_at + '</p>' +
+                                                '<p>Updated At: ' + member.updated_at + '</p>';
+                        detailsRow.find('.member-details').html(memberDetailsHtml);
+                        detailsRow.show();
+                    } else {
+                        alert('Failed to fetch member details.');
+                    }
                 },
                 error: function() {
                     alert('Failed to fetch member details.');
