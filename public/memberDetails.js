@@ -1,27 +1,33 @@
 $(document).ready(function() {
-    // Handle click on View button to show member details modal
+    // Handle click on View button to toggle member details
     $('.btn-view').on('click', function() {
         var row = $(this).closest('.member-row');
+        var detailsRow = row.next('.member-details-row');
         var memberId = row.data('member-id');
-        $.ajax({
-            url: '/Home/getMemberDetails/' + memberId, // Adjust endpoint as needed
-            method: 'GET',
-            dataType: 'html',
-            success: function(response) {
-                $('#memberDetailModal .modal-body').html(response);
-                $('#memberDetailModal').modal('show');
-            },
-            error: function() {
-                alert('Failed to fetch member details.'); // This message appears when there's an error
-            }
-        });
+
+        if (detailsRow.is(':visible')) {
+            detailsRow.hide();
+        } else {
+            $.ajax({
+                url: '/Home/getMemberDetails/' + memberId,
+                method: 'GET',
+                dataType: 'html',
+                success: function(response) {
+                    detailsRow.find('.member-details').html(response);
+                    detailsRow.show();
+                },
+                error: function() {
+                    alert('Failed to fetch member details.');
+                }
+            });
+        }
     });
 
     // Handle click on Edit button
     $(document).on('click', '.btn-edit', function() {
         var row = $(this).closest('.member-row');
         var memberId = row.data('member-id');
-        window.location.href = '/Home/updateMember/' + memberId; // Adjusted route
+        window.location.href = '/Home/updateMember/' + memberId;
     });
 
     // Handle click on Delete button

@@ -271,16 +271,13 @@ class Home extends BaseController
     
     public function getMemberDetails($memberId)
     {
-        // Load the MembersModel to fetch details
         $membersModel = new MembersModel();
         $member = $membersModel->find($memberId);
     
         if (!$member) {
-            return '<p>Member not found.</p>';
+            return $this->response->setJSON(['status' => 'error', 'message' => 'Member not found.']);
         }
     
-        // Return HTML representing member details
-        $data['member'] = $member;
-        return view('memberDetails/index', $data); // Assuming a view file 'member_details.php'
+        return $this->response->setJSON(['status' => 'success', 'member' => $member]);
     }    
 }

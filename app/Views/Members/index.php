@@ -67,13 +67,11 @@
                             <button class="btn btn-danger btn-sm btn-delete">Delete</button>
                         </td>
                     </tr>
-                    <tr class="member-details-row collapsed" id="details-<?= esc($member['id']) ?>">
+                    <tr class="member-details-row" id="details-<?= esc($member['id']) ?>" style="display: none;">
                         <td colspan="7">
                             <div class="member-details">
-                                <p>Email: <?= esc($member['email']); ?></p>
-                                <p>Phone Number: <?= esc($member['phone_number']); ?></p>
-                                <p>Status: <?= esc($member['status']); ?></p>
-                                <!-- Add any other member details you need here -->
+                                <!-- Placeholder for dynamic content -->
+                                <p>Loading...</p>
                             </div>
                         </td>
                     </tr>
@@ -87,19 +85,27 @@
     </table>
 </div>
 
-<!-- Include jQuery -->
+<!-- Modal for displaying member details -->
+<div class="modal fade" id="memberDetailModal" tabindex="-1" role="dialog" aria-labelledby="memberDetailModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="memberDetailModalLabel">Member Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Member details will be loaded here -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Include jQuery and Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="<?= base_url('memberDetails.js') ?>"></script>
-
-<script>
-    $(document).ready(function() {
-        // Handle click on View button to toggle member details
-        $('.btn-view').on('click', function() {
-            var row = $(this).closest('.member-row');
-            var detailsRow = row.next('.member-details-row');
-            detailsRow.toggle(); // Toggle visibility of details row
-        });
-
-        // Other event handlers for Edit and Delete buttons should be similarly handled.
-    });
-</script>
