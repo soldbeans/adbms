@@ -271,9 +271,16 @@ class Home extends BaseController
     
     public function getMemberDetails($memberId)
     {
+        // Load the MembersModel to fetch details
         $membersModel = new MembersModel();
-        $data['member'] = $membersModel->find($memberId);
+        $member = $membersModel->find($memberId);
     
-        return view('Members/memberDetails', $data);
-    }
+        if (!$member) {
+            return '<p>Member not found.</p>';
+        }
+    
+        // Return HTML representing member details
+        $data['member'] = $member;
+        return view('memberDetails/index', $data); // Assuming a view file 'member_details.php'
+    }    
 }

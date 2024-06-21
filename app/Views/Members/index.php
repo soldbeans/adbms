@@ -67,6 +67,16 @@
                             <button class="btn btn-danger btn-sm btn-delete">Delete</button>
                         </td>
                     </tr>
+                    <tr class="member-details-row collapsed" id="details-<?= esc($member['id']) ?>">
+                        <td colspan="7">
+                            <div class="member-details">
+                                <p>Email: <?= esc($member['email']); ?></p>
+                                <p>Phone Number: <?= esc($member['phone_number']); ?></p>
+                                <p>Status: <?= esc($member['status']); ?></p>
+                                <!-- Add any other member details you need here -->
+                            </div>
+                        </td>
+                    </tr>
                 <?php endforeach; ?>
             <?php else: ?>
                 <tr>
@@ -77,8 +87,19 @@
     </table>
 </div>
 
-<!-- Include jQuery and Bootstrap JavaScript -->
+<!-- Include jQuery -->
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="<?= base_url('memberDetails.js') ?>"></script>
+
+<script>
+    $(document).ready(function() {
+        // Handle click on View button to toggle member details
+        $('.btn-view').on('click', function() {
+            var row = $(this).closest('.member-row');
+            var detailsRow = row.next('.member-details-row');
+            detailsRow.toggle(); // Toggle visibility of details row
+        });
+
+        // Other event handlers for Edit and Delete buttons should be similarly handled.
+    });
+</script>

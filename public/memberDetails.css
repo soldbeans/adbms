@@ -1,6 +1,6 @@
 /* memberDetails.css */
 
-.member-details-row {
+.member-details-row.collapsed {
     display: none;
 }
 
