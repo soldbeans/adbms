@@ -67,6 +67,14 @@
                             <button class="btn btn-danger btn-sm btn-delete">Delete</button>
                         </td>
                     </tr>
+                    <tr class="member-details-row" id="details-<?= esc($member['id']) ?>" style="display: none;">
+                        <td colspan="7">
+                            <div class="member-details">
+                                <!-- Placeholder for dynamic content -->
+                                <p>Loading...</p>
+                            </div>
+                        </td>
+                    </tr>
                 <?php endforeach; ?>
             <?php else: ?>
                 <tr>
@@ -77,8 +85,27 @@
     </table>
 </div>
 
-<!-- Include jQuery and Bootstrap JavaScript -->
+<!-- Modal for displaying member details -->
+<div class="modal fade" id="memberDetailModal" tabindex="-1" role="dialog" aria-labelledby="memberDetailModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="memberDetailModalLabel">Member Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Member details will be loaded here -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Include jQuery and Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="<?= base_url('memberDetails.js') ?>"></script>

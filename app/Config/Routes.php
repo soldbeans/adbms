@@ -23,7 +23,7 @@ $routes->get('/Reports', 'Home::reports');
 $routes->get('/addBook', 'Home::addBook');
 
 //routes for book management
-$routes->post('/Home/saveBook', 'Home::saveBook');
+$routes->post('/home/saveBook', 'Home::saveBook');
 $routes->post('/Home/updateBook', 'Home::updateBook');
 $routes->post('/Home/deleteBook', 'Home::deleteBook');
 
@@ -33,4 +33,6 @@ $routes->post('/Home/addMember', 'Home::addMember');//Add new member
 $routes->post('/saveMember', 'Home::saveMember'); // Save new member
 $routes->post('updateMember', 'Home::updateMember');
 $routes->post('/deleteMember', 'Home::deleteMember'); // Delete member
+$routes->get('/Home/getMemberDetails/(:num)', 'Home::getMemberDetails/$1');
+
 

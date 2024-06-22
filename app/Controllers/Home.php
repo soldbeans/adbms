@@ -206,6 +206,7 @@ class Home extends BaseController
             return redirect()->back()->withInput()->with('error', 'Failed to add member');
         }
     }
+    
     public function updateMember($memberId = null)
     {
         helper(['form']);
@@ -267,4 +268,16 @@ class Home extends BaseController
             return $this->response->setJSON(['status' => 'error', 'message' => 'Invalid member ID.']);
         }
     }
+    
+    public function getMemberDetails($memberId)
+    {
+        $membersModel = new MembersModel();
+        $member = $membersModel->find($memberId);
+    
+        if (!$member) {
+            return $this->response->setJSON(['status' => 'error', 'message' => 'Member not found.']);
+        }
+    
+        return $this->response->setJSON(['status' => 'success', 'member' => $member]);
+    }    
 }
