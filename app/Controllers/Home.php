@@ -69,6 +69,7 @@ class Home extends BaseController
         $validation->setRules([
             'book_title' => 'required|min_length[3]|max_length[128]',
             'author' => 'required|min_length[3]|max_length[128]',
+            'genre' => 'required|in_list[Action,Comedy,Fantasy,Romance,Horror,Educational,Thriller,Mystery,Others]',
             'details' => 'required|max_length[256]',
             'availability' => 'required|in_list[Available,Unavailable]',
             'image' => 'uploaded[image]|max_size[image,4096]|is_image[image]|mime_in[image,image/jpg,image/jpeg,image/png]',
@@ -84,6 +85,7 @@ class Home extends BaseController
         $data = [
             'book_title' => $this->request->getPost('book_title'),
             'author' => $this->request->getPost('author'),
+            'genre' => $this->request->getPost('genre'),
             'details' => $this->request->getPost('details'),
             'availability' => $this->request->getPost('availability'),
         ];
@@ -112,6 +114,7 @@ class Home extends BaseController
             'book_id' => 'required',
             'book_title' => 'required|min_length[3]|max_length[128]',
             'author' => 'required|min_length[3]|max_length[128]',
+            'genre' => 'required|in_list[Action,Comedy,Fantasy,Romance,Horror,Educational,Thriller,Mystery,Others]',
             'details' => 'required|max_length[256]',
             'availability' => 'required|in_list[Available,Unavailable]',
             'image' => 'max_size[image,4096]|is_image[image]|mime_in[image,image/jpg,image/jpeg,image/png]',
@@ -132,6 +135,7 @@ class Home extends BaseController
         $data = [
             'book_title' => $this->request->getPost('book_title'),
             'author' => $this->request->getPost('author'),
+            'genre' => $this->request->getPost('genre'),
             'details' => $this->request->getPost('details'),
             'availability' => $this->request->getPost('availability'),
         ];

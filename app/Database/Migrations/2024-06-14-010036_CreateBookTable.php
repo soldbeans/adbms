@@ -24,6 +24,11 @@ class CreateBookTable extends Migration
                 'null'              => false,
                 'constraint'        => 128,
             ],
+            'genre' => [
+                'type'              => 'ENUM',
+                'null'              => false,
+                'constraint'        => ['Action', 'Comedy', 'Fantasy', 'Romance', 'Horror', 'Educational', 'Thriller', 'Mystery', 'Others'],
+            ],
             'details' => [
                 'type'              =>'TEXT',
                 'null'              => false,
