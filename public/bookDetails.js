@@ -4,6 +4,7 @@ $(document).ready(function () {
         var bookId = button.data('id');
         var title = button.data('title');
         var author = button.data('author');
+        var genre = button.data('genre'); // Retrieve genre from data attribute
         var details = button.data('details');
         var availability = button.data('availability');
         var image = button.data('image');
@@ -12,6 +13,7 @@ $(document).ready(function () {
         modal.find('#modal-book-id').val(bookId);
         modal.find('#modal-book-title').val(title);
         modal.find('#modal-book-author').val(author);
+        modal.find('#modal-book-genre').val(genre); // Set genre in select dropdown
         modal.find('#modal-book-details').val(details);
         modal.find('#modal-book-availability').val(availability);
 

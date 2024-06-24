@@ -9,6 +9,7 @@
                             <div class="col-md-8">
                                 <h5 class="card-title"><?= esc($book['book_title']); ?></h5>
                                 <h6 class="card-subtitle mb-2 text-muted"><?= esc($book['author']); ?></h6>
+                                <p class="card-text">Genre: <?= esc($book['genre']); ?></p> <!-- Display Genre -->
                                 <p class="card-text">Details: <?= esc($book['details']); ?></p>
                                 <p class="card-text">Availability: <?= esc($book['availability']); ?></p>
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bookDetailsModal" data-id="<?= esc($book['book_id']); ?>" data-title="<?= esc($book['book_title']); ?>" data-author="<?= esc($book['author']); ?>" data-details="<?= esc($book['details']); ?>" data-availability="<?= esc($book['availability']); ?>" data-image="<?= !empty($book['image']) ? 'data:image/jpeg;base64,' . $book['image'] : ''; ?>">
@@ -61,6 +62,20 @@
                         <div class="form-group">
                             <label for="modal-book-author">Author</label>
                             <input type="text" class="form-control" id="modal-book-author" name="author">
+                        </div>
+                        <div class="form-group">
+                            <label for="modal-book-genre">Genre</label>
+                                <select class="form-control" id="modal-book-genre" name="genre">
+                                    <option value="Action">Action</option>
+                                    <option value="Comedy">Comedy</option>
+                                    <option value="Fantasy">Fantasy</option>
+                                    <option value="Romance">Romance</option>
+                                    <option value="Horror">Horror</option>
+                                    <option value="Educational">Educational</option>
+                                    <option value="Thriller">Thriller</option>
+                                    <option value="Mystery">Mystery</option>
+                                    <option value="Others">Others</option>
+                                </select>
                         </div>
                         <div class="form-group">
                             <label for="modal-book-details">Details</label>
