@@ -1,38 +1,66 @@
 <?php
 
-use CodeIgniter\Router\RouteCollection;
+namespace Config;
 
-/**
- * @var RouteCollection $routes
+// Create a new instance of our RouteCollection class.
+$routes = Services::routes();
+
+// Load the system's routing file first, so that the app and ENVIRONMENT
+// can override as needed.
+if (file_exists(SYSTEMPATH . 'Config/Routes.php')) {
+    require SYSTEMPATH . 'Config/Routes.php';
+}
+
+/*
+ * --------------------------------------------------------------------
+ * Router Setup
+ * --------------------------------------------------------------------
+ */
+$routes->setDefaultNamespace('App\Controllers');
+$routes->setDefaultController('Home');
+$routes->setDefaultMethod('index');
+$routes->setTranslateURIDashes(false);
+$routes->set404Override();
+$routes->setAutoRoute(true);
+
+/*
+ * --------------------------------------------------------------------
+ * Route Definitions
+ * --------------------------------------------------------------------
  */
 
- /*the first parameter is whatever view you wanna call and the
-the second parameter is the controller and the name of the method(index) */
-$routes->get('/', 'Home::index');
+// Set the default route to ChooseLogin/index
+$routes->get('/', 'ChooseLogin::index');
 
-$routes->get('/Home', 'Home::index');
-
-$routes->get('/Catalog', 'Home::catalog');
-
-$routes->get('/Checkouts', 'Home::checkouts');
-
-$routes->get('/Members', 'Home::members'); // Updated route for members listing
-
-$routes->get('/Reports', 'Home::reports');
-
-$routes->get('/addBook', 'Home::addBook');
-
-//routes for book management
-$routes->post('/home/saveBook', 'Home::saveBook');
-$routes->post('/Home/updateBook', 'Home::updateBook');
-$routes->post('/Home/deleteBook', 'Home::deleteBook');
-
-// New routes for member management
-$routes->get('/addMember', 'Home::addMember'); // Form to add new member
-$routes->post('/Home/addMember', 'Home::addMember');//Add new member
-$routes->post('/saveMember', 'Home::saveMember'); // Save new member
-$routes->post('updateMember', 'Home::updateMember');
-$routes->post('/deleteMember', 'Home::deleteMember'); // Delete member
-$routes->get('/Home/getMemberDetails/(:num)', 'Home::getMemberDetails/$1');
+// Admin routes
+$routes->get('/admin', 'AdminController::index');
+$routes->get('/admin/catalog', 'AdminController::catalog');
+$routes->get('/admin/checkouts', 'AdminController::checkouts');
+$routes->get('/admin/members', 'AdminController::members');
+$routes->get('/admin/reports', 'AdminController::reports');
+$routes->get('/admin/addBook', 'AdminController::addBook');
+$routes->post('/admin/saveBook', 'AdminController::saveBook');
+$routes->post('/admin/updateBook', 'AdminController::updateBook');
+$routes->post('/admin/deleteBook', 'AdminController::deleteBook');
+$routes->post('/admin/addMember', 'AdminController::addMember');
+$routes->post('/admin/updateMember', 'AdminController::updateMember');
+$routes->post('/admin/deleteMember', 'AdminController::deleteMember');
+$routes->get('/admin/getMemberDetails/(:num)', 'AdminController::getMemberDetails/$1');
 
 
+$routes->get('/admin/login', 'AdminController::login', ['as' => 'admin.login']);
+$routes->post('/admin/login', 'AdminController::login', ['as' => 'admin.login.post']);
+$routes->get('/admin/logout', 'AdminController::logout', ['as' => 'admin.logout']);
+
+/*
+ * --------------------------------------------------------------------
+ * Additional Routing
+ * --------------------------------------------------------------------
+ *
+ * There will often be times that you need additional routing and you
+ * need to use the environment-specific routes file. require() that
+ * file here to make sure it is loaded, and adjust as needed.
+ */
+if (file_exists(APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php')) {
+    require APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php';
+}
