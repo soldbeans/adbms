@@ -3,23 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Login</title>
+    <title>Member Login</title>
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="<?= base_url('AdminLogin.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('MemberLogin.css') ?>">
 </head>
 <body>
     <div class="login-container">
         <div class="login-box">
-            <h2>Admin Login</h2>
+            <h2>Member Login</h2>
             <?php if (session()->getFlashdata('error')): ?>
                 <div class="alert alert-danger"><?= session()->getFlashdata('error') ?></div>
             <?php endif; ?>
             <?= \Config\Services::validation()->listErrors() ?>
-            <form action="<?= base_url('/admin/login') ?>" method="post">
+            <form action="<?= base_url('/members/login') ?>" method="post">
                 <div class="form-group">
-                    <label for="username">Username</label>
+                    <label for="username">First Name</label>
                     <input type="text" class="form-control" id="username" name="username" required>
                 </div>
                 <div class="form-group">

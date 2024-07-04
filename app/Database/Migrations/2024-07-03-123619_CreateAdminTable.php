@@ -8,25 +8,20 @@ class CreateAdminTable extends Migration
 {
     public function up()
     {
+        // Create the admin table
         $this->forge->addField([
             'id' => [
-                'type'           => 'INT',
-                'unsigned'       => true,
-                'auto_increment' => true,
+                'type' => 'INT',
+                'unsigned' => true,
+                'auto_increment' => true
             ],
             'username' => [
-                'type'       => 'VARCHAR',
+                'type' => 'VARCHAR',
                 'constraint' => '100',
-                'unique'     => true,
             ],
             'password' => [
-                'type'       => 'VARCHAR',
+                'type' => 'VARCHAR',
                 'constraint' => '255',
-            ],
-            'email' => [
-                'type'       => 'VARCHAR',
-                'constraint' => '255',
-                'unique'     => true,
             ],
             'created_at' => [
                 'type' => 'DATETIME',
@@ -40,6 +35,14 @@ class CreateAdminTable extends Migration
 
         $this->forge->addKey('id', true);
         $this->forge->createTable('admin');
+
+        // Insert initial admin account
+        $this->db->table('admin')->insert([
+            'username' => 'admin',
+            'password' => password_hash('buratlover', PASSWORD_BCRYPT), // Hash the password
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+        ]);
     }
 
     public function down()

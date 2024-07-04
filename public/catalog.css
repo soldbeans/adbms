@@ -14,12 +14,45 @@ body {
     background-color: #495057;
 }
 
+.navbar-brand {
+    margin-right: 20px; /* Adjust spacing for the brand/logo */
+}
+
 .navbar a {
     color: #fff !important;
+    padding: 10px 15px; /* Add padding to each link */
+    margin: 0 10px; /* Add margin to space out the links */
 }
 
 .navbar a:hover {
     background-color: #343a40;
+}
+
+.navbar-nav {
+    flex-direction: row; /* Ensure navbar items are aligned horizontally */
+}
+
+.nav-item {
+    margin-left: 10px; /* Space out nav items */
+}
+
+.ml-auto {
+    margin-left: auto; /* Push items to the far right */
+}
+
+.navbar-text {
+    color: #fff;
+    margin-right: 15px; /* Space between username and logout button */
+}
+
+.btn-outline-light {
+    border-color: #fff;
+    color: #fff;
+}
+
+.btn-outline-light:hover {
+    background-color: #fff;
+    color: #495057;
 }
 
 .main {

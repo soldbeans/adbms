@@ -7,7 +7,7 @@
 
 <h2>Add a New Book</h2>
 
-<form action="<?= base_url('/home/saveBook') ?>" method="post" enctype="multipart/form-data">
+<form action="<?= base_url('/admin/saveBook') ?>" method="post" enctype="multipart/form-data">
     <div class="form-group">
         <label for="book_title">Book Title:</label>
         <input type="text" id="book_title" name="book_title" class="form-control" value="<?= set_value('book_title') ?>" required>
@@ -55,7 +55,7 @@
 
     <div class="form-group">
         <button type="submit" class="btn btn-primary">Add Book</button>
-        <a href="<?= base_url('/catalog') ?>" class="btn btn-secondary">Cancel</a>
+        <a href="<?= base_url('admin/Catalog') ?>" class="btn btn-secondary">Cancel</a>
     </div>
 </form>
 

@@ -10,4 +10,14 @@ class ChooseLogin extends Controller
     {
         return view('ChooseLogin/index');
     }
+
+    public function adminLogin()
+    {
+        return redirect()->to('/admin/login');
+    }
+
+    public function userLogin()
+    {
+        return redirect()->to('/member/login');
+    }
 }

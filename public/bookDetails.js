@@ -63,17 +63,18 @@ $(document).ready(function () {
         if (confirm('Are you sure you want to delete this book?')) {
             $.ajax({
                 type: 'POST',
-                url: 'Home/deleteBook',
+                url: ('admin/deleteBook'),  // Ensure this URL matches the route
                 data: { book_id: bookId },
                 success: function (response) {
                     if (response.status === 'success') {
                         alert('Book deleted successfully.');
                         location.reload(); // Reload the page to reflect changes
                     } else {
-                        alert('Failed to delete book.');
+                        alert('Failed to delete book: ' + response.message);
                     }
                 },
                 error: function (xhr, status, error) {
+                    console.error('Error deleting book:', xhr.responseText);  // Log detailed error
                     alert('Error deleting book: ' + error);
                 }
             });

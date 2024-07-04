@@ -4,7 +4,7 @@
     <h2>Member Transactions</h2>
 
     <!-- Form for adding new member -->
-    <form action="<?= base_url('Home/addMember') ?>" method="post">
+    <form action="<?= base_url('admin/addMember') ?>" method="post">
         <?= csrf_field() ?>
         <div class="form-group">
             <label for="first_name">First Name</label>

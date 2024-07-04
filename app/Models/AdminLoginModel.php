@@ -6,13 +6,18 @@ use CodeIgniter\Model;
 
 class AdminLoginModel extends Model
 {
-    protected $table = 'admin'; // Adjust this to your actual table name
+    protected $table = 'admin';
     protected $primaryKey = 'id';
+    protected $allowedFields = ['username', 'password'];
 
-    protected $allowedFields = ['username', 'password']; // Adjust as needed
+    protected $beforeInsert = ['hashPassword'];
+    protected $beforeUpdate = ['hashPassword'];
 
-    public function findAdminByUsername($username)
+    protected function hashPassword(array $data)
     {
-        return $this->where('username', $username)->first(); // Adjust field name if needed
+        if (isset($data['data']['password']) && is_string($data['data']['password'])) {
+            $data['data']['password'] = password_hash($data['data']['password'], PASSWORD_BCRYPT);
+        }
+        return $data;
     }
 }
