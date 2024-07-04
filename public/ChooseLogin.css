@@ -1,0 +1,82 @@
+/* Reset some default browser styles */
+body, h1, h2, h3, p {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    line-height: 1.6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    width: 100%;
+    max-width: 600px;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.header h1 {
+    font-size: 2.5rem;
+    color: #007bff;
+}
+
+.login-options {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.login-option {
+    flex: 1;
+    max-width: 250px;
+    text-align: center;
+    padding: 20px;
+    border-radius: 8px;
+    background: #f8f9fa;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: background 0.3s ease;
+    cursor: pointer;
+    text-decoration: none;
+    color: #333;
+}
+
+.login-option:hover {
+    background: #e2e6ea;
+}
+
+.login-option h2 {
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+}
+
+.login-option p {
+    font-size: 1rem;
+    margin-bottom: 0;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .login-options {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .login-option {
+        max-width: none;
+    }
+}
