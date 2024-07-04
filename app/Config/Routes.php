@@ -31,3 +31,5 @@ $routes->get('/AdminLogin', 'ChooseLogin::adminLogin'); // Show login form
 $routes->get('/UserLogin', 'ChooseLogin::userLogin'); // Show login form
 $routes->get('/member/login', 'MemberController::login'); // Handle login
 $routes->get('/members/logout', 'Members::logout'); // Handle logout
+
+$routes->get('members/MHome', 'MemberController::loginView');

@@ -15,13 +15,13 @@ body {
 }
 
 .navbar-brand {
-    margin-right: 20px; /* Adjust spacing for the brand/logo */
+    margin-right: 20px;
 }
 
 .navbar a {
     color: #fff !important;
-    padding: 10px 15px; /* Add padding to each link */
-    margin: 0 10px; /* Add margin to space out the links */
+    padding: 10px 15px;
+    margin: 0 10px;
 }
 
 .navbar a:hover {
@@ -29,20 +29,20 @@ body {
 }
 
 .navbar-nav {
-    flex-direction: row; /* Ensure navbar items are aligned horizontally */
+    flex-direction: row;
 }
 
 .nav-item {
-    margin-left: 10px; /* Space out nav items */
+    margin-left: 10px;
 }
 
 .ml-auto {
-    margin-left: auto; /* Push items to the far right */
+    margin-left: auto;
 }
 
 .navbar-text {
     color: #fff;
-    margin-right: 15px; /* Space between username and logout button */
+    margin-right: 15px;
 }
 
 .btn-outline-light {
@@ -65,6 +65,7 @@ body {
     margin-bottom: 30px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative;
 }
 
 .footer {
@@ -78,64 +79,92 @@ body {
     margin-top: auto;
 }
 
-.card-columns {
-    column-count: 3;
+/* Flexbox layout for the catalog */
+.catalog {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
 }
 
+/* Adjust card sizing */
 .card {
+    flex: 1 1 calc(25% - 20px); /* 4 cards per row */
+    box-sizing: border-box;
+    margin: 10px;
+}
+
+/* Ensure card body is correctly spaced */
+.card-body {
+    padding: 15px;
+}
+
+/* Image styling */
+.book-image-container {
+    text-align: center;
+}
+
+.book-image {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Modal styling */
+.modal-content {
+    border-radius: 8px;
+}
+
+.modal-body {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.flex-fill {
+    flex: 1;
+    min-width: 0;
+}
+
+.mr-3 {
+    margin-right: 1rem;
+}
+
+.ml-3 {
+    margin-left: 1rem;
+}
+
+.book-image-preview {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Search Bar and Category Filter styling */
+.search-bar, .category-filter {
     margin-bottom: 20px;
 }
 
-.card-body {
-    padding-bottom: 1.25rem; /* Adjust padding if needed */
-}
-
-.book-image-container {
-    height: 100%; /* Ensure container takes full height of column */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-left: 1px solid #e9ecef; /* Optional: Border between columns */
-}
-
-.book-image-container img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain; /* Ensures image fits within container */
-}
-
-.modal-dialog-centered {
-    display: flex;
-    align-items: center;
-    min-height: calc(100% - 1rem);
-}
-
-.modal-dialog-centered::before {
-    display: block;
-    height: calc(100vh - 1rem);
-    content: "";
-}
-
-.image-container {
+.search-bar input {
     width: 100%;
-    height: 0;
-    padding-bottom: 75%; /* Adjust the percentage to change the aspect ratio */
-    position: relative;
-    overflow: hidden;
-    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ced4da;
 }
 
-.image-container img {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: auto;
+.category-filter select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ced4da;
+}
+/* Add this CSS to your stylesheet */
+.card-adjusted {
+    flex: 1 1 calc(25% - 20px); /* Adjust to ensure 4 cards per row */
+    margin: 10px;
+    box-sizing: border-box;
+    max-height: 400px; /* Limit max height to prevent overflow */
+    overflow: hidden; /* Hide overflow if content is too large */
+}
+
+.card-content {
+    display: flex;
+    flex-direction: column;
     height: 100%;
-    transform: translate(-50%, -50%);
-}
-
-@media (max-width: 576px) {
-    .modal-dialog {
-        max-width: 90%;
-    }
 }

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Choose Login</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="ChooseLogin.css">
 </head>
 <body>
     <div class="choose-login-container">

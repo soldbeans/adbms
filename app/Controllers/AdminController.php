@@ -106,7 +106,7 @@ class AdminController extends BaseController
     public function updateBook()
     {
         helper(['form']);
-
+    
         $validation = \Config\Services::validation();
         $validation->setRules([
             'book_id' => 'required',
@@ -117,19 +117,19 @@ class AdminController extends BaseController
             'availability' => 'required|in_list[Available,Unavailable]',
             'image' => 'max_size[image,4096]|is_image[image]|mime_in[image,image/jpg,image/jpeg,image/png]',
         ]);
-
+    
         if (!$validation->withRequest($this->request)->run()) {
-            return redirect()->back()->withInput()->with('validation', $validation);
+            return $this->response->setJSON(['status' => 'error', 'message' => $validation->getErrors()]);
         }
-
+    
         $bookId = $this->request->getPost('book_id');
         $model = new BookModel();
         $book = $model->find($bookId);
-
+    
         if (!$book) {
             return $this->response->setJSON(['status' => 'error', 'message' => 'Book not found.']);
         }
-
+    
         $data = [
             'book_title' => $this->request->getPost('book_title'),
             'author' => $this->request->getPost('author'),
@@ -137,40 +137,37 @@ class AdminController extends BaseController
             'details' => $this->request->getPost('details'),
             'availability' => $this->request->getPost('availability'),
         ];
-
+    
         $file = $this->request->getFile('image');
         if ($file && $file->isValid() && !$file->hasMoved()) {
-            $imageData = file_get_contents($file->getTempName());
-            $data['image'] = $imageData;
+            $data['image'] = $file->getName(); // Store image filename
         }
-
+    
         if ($model->update($bookId, $data)) {
-            $responseData = [
-                'status' => 'success',
-                'image' => !empty($data['image']) ? 'data:image/jpeg;base64,' . base64_encode($data['image']) : ''
-            ];
+            $responseData = ['status' => 'success', 'message' => 'Book updated successfully.'];
         } else {
             $responseData = ['status' => 'error', 'message' => 'Failed to update book.'];
         }
-
+    
         return $this->response->setJSON($responseData);
     }
-
+    
     public function deleteBook()
     {
         $bookId = $this->request->getPost('book_id');
-
+    
         if ($bookId) {
             $model = new BookModel();
             if ($model->delete($bookId)) {
-                return $this->response->setJSON(['status' => 'success']);
+                return $this->response->setJSON(['status' => 'success', 'message' => 'Book deleted successfully.']);
             } else {
                 return $this->response->setJSON(['status' => 'error', 'message' => 'Failed to delete book.']);
             }
         } else {
             return $this->response->setJSON(['status' => 'error', 'message' => 'Invalid book ID.']);
         }
-    } 
+    }
+       
     public function addMember()
     {
         helper(['form']);
