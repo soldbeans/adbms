@@ -182,9 +182,7 @@ class AdminController extends BaseController
             'status' => 'required|in_list[no violations,penalized,banned]',
         ]);
         
-        // Check validation
         if (!$validation->withRequest($this->request)->run()) {
-            // Validation failed, return to the view with validation errors
             return view('admin/members', [
                 'validation' => $validation,
             ]);
@@ -197,25 +195,21 @@ class AdminController extends BaseController
             'last_name' => $this->request->getPost('last_name'),
             'email' => $this->request->getPost('email'),
             'phone_number' => $this->request->getPost('phone_number'),
-            'password' => $this->request->getPost('password'),
+            'password' => $this->request->getPost('password'), // Password will be hashed in the model
             'status' => $this->request->getPost('status'),
         ];
         
-        // Save data
         if ($model->save($data)) {
-            // Successful save, redirect to the members page with a success message
             return redirect()->to('/admin/Members')->with('success', 'Member added successfully');
         } else {
-            // Save failed, redirect back with input data and error message
             return redirect()->back()->withInput()->with('error', 'Failed to add member');
         }
-    }        
+    }           
 
     public function updateMember($memberId = null)
     {
         helper(['form']);
-
-        // Validation rules
+    
         $validation = \Config\Services::validation();
         $validation->setRules([
             'member_id' => 'required',
@@ -223,15 +217,14 @@ class AdminController extends BaseController
             'last_name' => 'required|min_length[2]|max_length[100]',
             'email' => 'required|valid_email|max_length[100]',
             'phone_number' => 'required|max_length[15]',
-            'password' => 'permit_empty|min_length[8]|max_length[255]', // Allow empty password or validate if provided
+            'password' => 'required|min_length[8]|max_length[255]', // Allow empty password or validate if provided
             'status' => 'required|in_list[no violations,penalized,banned]',
         ]);
-
+    
         if (!$validation->withRequest($this->request)->run()) {
             return redirect()->back()->withInput()->with('validation', $validation);
         }
-
-        // Retrieve member data from POST
+    
         $data = [
             'first_name' => $this->request->getPost('first_name'),
             'last_name' => $this->request->getPost('last_name'),
@@ -239,23 +232,19 @@ class AdminController extends BaseController
             'phone_number' => $this->request->getPost('phone_number'),
             'status' => $this->request->getPost('status'),
         ];
-
-        // Update password only if provided
+    
         $password = $this->request->getPost('password');
         if (!empty($password)) {
-            $data['password'] = $password;
+            $data['password'] = $password; // Password will be hashed in the model
         }
-
-        // Update member in database
+    
         $model = new MembersModel();
         if ($model->update($memberId, $data)) {
-            $responseData = ['status' => 'success'];
+            return redirect()->to('/admin/Members')->with('success', 'Member updated successfully');
         } else {
-            $responseData = ['status' => 'error', 'message' => 'Failed to update member.'];
+            return redirect()->back()->withInput()->with('error', 'Failed to update member');
         }
-
-        return $this->response->setJSON($responseData);
-    }
+    }    
 
     public function deleteMember()
     {

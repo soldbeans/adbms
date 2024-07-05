@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use CodeIgniter\Controller;
+use App\Models\MembersModel;
 
 class MemberController extends Controller
 {
@@ -52,7 +53,7 @@ class MemberController extends Controller
             ]);
         }
     
-        $model = new \App\Models\MembersModel();
+        $model = new MembersModel();
         $email = $this->request->getPost('email');
         $password = $this->request->getPost('password');
     

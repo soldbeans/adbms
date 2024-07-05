@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="<?= base_url('memberDetails.css') ?>">
 
 <div class="container">
-    <h2>Member Transactions</h2>
+    <h2>Add Members</h2>
 
     <!-- Form for adding new member -->
     <form action="<?= base_url('admin/addMember') ?>" method="post">

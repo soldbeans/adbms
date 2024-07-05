@@ -22,7 +22,7 @@
             <ul class="navbar-nav">
                 <li class="nav-item"><a class="nav-link" href="<?= base_url('/member/MHome')?>">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="<?= base_url('/member/catalog')?>">Catalog</a></li>
-                <li class="nav-item"><a class="nav-link" href="<?= base_url('/member/checkouts')?>">My_Checkout</a></li>
+                <li class="nav-item"><a class="nav-link" href="<?= base_url('/member/checkouts')?>">My Checkout</a></li>
                 <li class="nav-item"><a class="nav-link" href="<?= base_url('/member/reports')?>">Report</a></li>
                 <li class="nav-item"><a class="nav-link" href="<?= base_url('/member/profile')?>">Profile</a></li>
                 <?php if (session()->has('member_email')): ?>

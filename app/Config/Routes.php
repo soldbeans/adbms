@@ -22,6 +22,8 @@ $routes->post('/admin/updateBook', 'AdminController::updateBook');
 $routes->post('/admin/deleteBook', 'AdminController::deleteBook');
 
 $routes->post('/admin/addMember', 'AdminController::addMember');
+$routes->get('/hash-passwords', 'PasswordHashController::hashExistingPasswords');
+$routes->get('/hash-passwords', 'PasswordHashController::index');
 $routes->post('/admin/updateMember', 'AdminController::updateMember');
 $routes->post('/admin/deleteMember', 'AdminController::deleteMember');
 $routes->get('/admin/getMemberDetails/(:num)', 'AdminController::getMemberDetails/$1');

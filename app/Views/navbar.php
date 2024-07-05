@@ -30,7 +30,7 @@
             </ul>
             <ul class="navbar-nav ml-auto">
                 <?php if (session()->get('username')): ?>
-                    <li class="nav-item"><a class="nav-link" href="#"><?= session()->get('username') ?></a></li>
+                    <li class="nav-item"><a class="navbar-text"><?= session()->get('username') ?></a></li>
                     <li class="nav-item"><a class="nav-link" href="<?= base_url('/admin/logout') ?>">Logout</a></li>
                 <?php endif; ?>
             </ul>
