@@ -10,32 +10,32 @@
 <body>
 <div class="container mt-5">
     <h2 class="mb-4">Add a New Book</h2>
-    
+
     <?php if (isset($validation)): ?>
         <div class="alert alert-danger">
             <?= $validation->listErrors() ?>
         </div>
     <?php endif; ?>
-    
+
     <form action="<?= base_url('/home/saveBook') ?>" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
         <div class="form-group">
             <label for="book_title">Book Title:</label>
             <input type="text" class="form-control" id="book_title" name="book_title" value="<?= set_value('book_title') ?>" required>
             <div class="invalid-feedback">Please provide a book title.</div>
         </div>
-        
+
         <div class="form-group">
             <label for="author">Author:</label>
             <input type="text" class="form-control" id="author" name="author" value="<?= set_value('author') ?>" required>
             <div class="invalid-feedback">Please provide an author name.</div>
         </div>
-        
+
         <div class="form-group">
             <label for="details">Details:</label>
             <textarea class="form-control" id="details" name="details" rows="4" required><?= set_value('details') ?></textarea>
             <div class="invalid-feedback">Please provide details about the book.</div>
         </div>
-        
+
         <div class="form-group">
             <label for="availability">Availability:</label>
             <select class="form-control" id="availability" name="availability" required>
@@ -44,16 +44,20 @@
             </select>
             <div class="invalid-feedback">Please select the availability status.</div>
         </div>
-        
+
         <div class="form-group">
             <label for="image">Book Image:</label>
             <input type="file" class="form-control-file" id="image" name="image">
         </div>
-        
+
         <div class="form-group">
             <button type="submit" class="btn btn-primary">Add Book</button>
         </div>
     </form>
+</div>
+
+<div class="footer">
+    <p>Libraryworks.com --- "The library that works"</p>
 </div>
 
 <!-- Bootstrap JS and dependencies -->
