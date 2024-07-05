@@ -1,0 +1,74 @@
+/* styles.css */
+
+/* General styles */
+body, html {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+body {
+    background-color: #f8f9fa;
+    font-family: Arial, sans-serif;
+    padding-bottom: 40px; /* Adjust padding-bottom as needed */
+}
+
+.container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    flex: 1;
+}
+
+/* Form heading */
+h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #343a40;
+}
+
+/* Form elements */
+.form-group label {
+    font-weight: bold;
+    color: #495057;
+}
+
+.form-control, .form-control-file, .form-control:focus, .form-control-file:focus {
+    border-color: #ced4da;
+    border-radius: 4px;
+    box-shadow: none;
+}
+
+textarea.form-control {
+    resize: vertical;
+}
+
+.invalid-feedback {
+    display: block;
+}
+
+/* Button styles */
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    border-radius: 4px;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+}
+
+/* Alerts */
+.alert {
+    border-radius: 4px;
+    font-size: 14px;
+}
