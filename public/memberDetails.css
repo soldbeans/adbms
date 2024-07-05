@@ -1,5 +1,9 @@
 /* memberDetails.css */
 
+h2 {
+    margin-top: 30px; /* Adjust the value as needed */
+}
+
 .member-details-row.collapsed {
     display: none;
 }

@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-class admin extends BaseController
+class User extends BaseController
 {
     public function index(): string
     {

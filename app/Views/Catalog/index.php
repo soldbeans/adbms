@@ -1,14 +1,39 @@
 <div id="catalog" class="section">
     <h2>Book Catalog</h2>
+            <!-- Search Bar -->
+            <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Search for books...">
+        </div>
+
+        <!-- Category Filter -->
+        <div class="category-filter">
+            <select id="categorySelect">
+                <option value="">All Categories</option>
+                <!-- Add categories dynamically or manually -->
+                <option value="Action">Action</option>
+                <option value="Comedy">Comedy</option>
+                <option value="Fantasy">Fantasy</option>
+                <option value="Romance">Romance</option>
+                <option value="Horror">Horror</option>
+                <option value="Educational">Educational</option>
+                <option value="Thriller">Thriller</option>
+                <option value="Mystery">Mystery</option>
+                <option value="Others">Others</option>
+                <!-- Add more categories as needed -->
+            </select>
+        </div>
+    </div>
     <div class="card-columns">
         <?php if (!empty($books) && is_array($books)) : ?>
             <?php foreach ($books as $book) : ?>
+                <div class="catalog-controls">
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-8">
                                 <h5 class="card-title"><?= esc($book['book_title']); ?></h5>
                                 <h6 class="card-subtitle mb-2 text-muted"><?= esc($book['author']); ?></h6>
+                                <p class="card-text">Genre: <?= esc($book['genre']); ?></p> <!-- Display Genre -->
                                 <p class="card-text">Details: <?= esc($book['details']); ?></p>
                                 <p class="card-text">Availability: <?= esc($book['availability']); ?></p>
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bookDetailsModal" data-id="<?= esc($book['book_id']); ?>" data-title="<?= esc($book['book_title']); ?>" data-author="<?= esc($book['author']); ?>" data-details="<?= esc($book['details']); ?>" data-availability="<?= esc($book['availability']); ?>" data-image="<?= !empty($book['image']) ? 'data:image/jpeg;base64,' . $book['image'] : ''; ?>">
@@ -63,6 +88,20 @@
                             <input type="text" class="form-control" id="modal-book-author" name="author">
                         </div>
                         <div class="form-group">
+                            <label for="modal-book-genre">Genre</label>
+                                <select class="form-control" id="modal-book-genre" name="genre">
+                                    <option value="Action">Action</option>
+                                    <option value="Comedy">Comedy</option>
+                                    <option value="Fantasy">Fantasy</option>
+                                    <option value="Romance">Romance</option>
+                                    <option value="Horror">Horror</option>
+                                    <option value="Educational">Educational</option>
+                                    <option value="Thriller">Thriller</option>
+                                    <option value="Mystery">Mystery</option>
+                                    <option value="Others">Others</option>
+                                </select>
+                        </div>
+                        <div class="form-group">
                             <label for="modal-book-details">Details</label>
                             <textarea class="form-control" id="modal-book-details" name="details"></textarea>
                         </div>
@@ -86,7 +125,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary">Update</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn    btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </form>
         </div>
@@ -99,3 +138,4 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <!-- External JavaScript file -->
 <script src="<?= base_url('bookDetails.js') ?>"></script>
+<script src="<?= base_url('catalog.js')?>"></script>

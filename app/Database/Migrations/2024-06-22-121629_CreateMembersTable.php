@@ -32,7 +32,7 @@ class CreateMembersTable extends Migration
                 'null' => false,
             ],
             'phone_number' => [
-                'type'       => 'VARCHAR',
+                'type' => 'VARCHAR',
                 'constraint' => '15',
                 'null' => false,
             ],
@@ -61,6 +61,22 @@ class CreateMembersTable extends Migration
         $this->forge->addKey('id', true);
         // Create the table
         $this->forge->createTable('members');
+
+        // Insert a default member record with a hashed password for testing purposes
+        $hashedPassword = password_hash('password123', PASSWORD_BCRYPT);
+
+        $data = [
+            'first_name' => 'John',
+            'last_name'  => 'Doe',
+            'email'      => 'john.doe@example.com',
+            'phone_number'=> '1234567890',
+            'password'   => $hashedPassword,
+            'status'     => 'no violations',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+        ];
+
+        $this->db->table('members')->insert($data);
     }
 
     public function down()

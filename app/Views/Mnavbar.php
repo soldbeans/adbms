@@ -6,9 +6,8 @@
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <!-- External CSS -->
-    <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="<?= base_url('home.css') ?>">
     <link rel="stylesheet" href="<?= base_url('catalog.css') ?>">
-    <script src="dynamicTitle.js"></script>
 </head>
 <body>
     <div class="header">
@@ -21,17 +20,14 @@
         </button>
         <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
             <ul class="navbar-nav">
-                <li class="nav-item"><a class="nav-link" href="<?= base_url('/admin/Home')?>">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="<?= base_url('/admin/Catalog')?>">Catalog</a></li>
-                <li class="nav-item"><a class="nav-link" href="<?= base_url('/admin/Checkouts')?>">Checkouts</a></li>
-                <li class="nav-item"><a class="nav-link" href="<?= base_url('/admin/Members')?>">Members</a></li>
-                <li class="nav-item"><a class="nav-link" href="<?= base_url('/admin/Reports')?>">Reports</a></li>
-                <li class="nav-item"><a class="nav-link" href="<?= base_url('/admin/addBook')?>">Add Book</a></li>
-            </ul>
-            <ul class="navbar-nav ml-auto">
-                <?php if (session()->get('username')): ?>
-                    <li class="nav-item"><a class="nav-link" href="#"><?= session()->get('username') ?></a></li>
-                    <li class="nav-item"><a class="nav-link" href="<?= base_url('/admin/logout') ?>">Logout</a></li>
+                <li class="nav-item"><a class="nav-link" href="<?= base_url('/user/Home')?>">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="<?= base_url('/user/Catalog')?>">Catalog</a></li>
+                <li class="nav-item"><a class="nav-link" href="<?= base_url('/user/Checkouts')?>">My_Checkout</a></li>
+                <li class="nav-item"><a class="nav-link" href="<?= base_url('/user/Reports')?>">Report</a></li>
+                <li class="nav-item"><a class="nav-link" href="<?= base_url('/user/Profile')?>">Profile</a></li>
+                <?php if (session()->has('username')): ?>
+                    <li class="nav-item ml-auto"><span class="navbar-text"><?= session('username') ?></span></li>
+                    <li class="nav-item"><a class="nav-link" href="<?= base_url('/user/logout')?>">Logout</a></li>
                 <?php endif; ?>
             </ul>
         </div>

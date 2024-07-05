@@ -1,38 +1,35 @@
 <?php
 
-use CodeIgniter\Router\RouteCollection;
+namespace Config;
 
-/**
- * @var RouteCollection $routes
- */
+$routes->get('/', 'ChooseLogin::index');
 
- /*the first parameter is whatever view you wanna call and the
-the second parameter is the controller and the name of the method(index) */
-$routes->get('/', 'Home::index');
+// Admin routes
+$routes->get('/AdminLogin', 'AdminController::loginView');
+$routes->post('/admin/login', 'AdminController::login');
+$routes->get('/admin/logout', 'AdminController::logout');
 
-$routes->get('/Home', 'Home::index');
+// Navigation Routes for admin
+$routes->get('/admin/Home', 'AdminController::index');
+$routes->get('/admin/Catalog', 'AdminController::catalog');
+$routes->get('/admin/Checkouts', 'AdminController::checkouts');
+$routes->get('/admin/Members', 'AdminController::members');
+$routes->get('/admin/Reports', 'AdminController::reports');
+$routes->get('/admin/addBook', 'AdminController::addBook');
 
-$routes->get('/Catalog', 'Home::catalog');
+$routes->post('/admin/saveBook', 'AdminController::saveBook');
+$routes->post('/admin/updateBook', 'AdminController::updateBook');
+$routes->post('/admin/deleteBook', 'AdminController::deleteBook');
 
-$routes->get('/Checkouts', 'Home::checkouts');
+$routes->post('/admin/addMember', 'AdminController::addMember');
+$routes->post('/admin/updateMember', 'AdminController::updateMember');
+$routes->post('/admin/deleteMember', 'AdminController::deleteMember');
+$routes->get('/admin/getMemberDetails/(:num)', 'AdminController::getMemberDetails/$1');
 
-$routes->get('/Members', 'Home::members'); // Updated route for members listing
+//Member routes
+$routes->get('/AdminLogin', 'ChooseLogin::adminLogin'); // Show login form
+$routes->get('/UserLogin', 'ChooseLogin::userLogin'); // Show login form
+$routes->get('/member/login', 'MemberController::login'); // Handle login
+$routes->get('/members/logout', 'Members::logout'); // Handle logout
 
-$routes->get('/Reports', 'Home::reports');
-
-$routes->get('/addBook', 'Home::addBook');
-
-//routes for book management
-$routes->post('/home/saveBook', 'Home::saveBook');
-$routes->post('/Home/updateBook', 'Home::updateBook');
-$routes->post('/Home/deleteBook', 'Home::deleteBook');
-
-// New routes for member management
-$routes->get('/addMember', 'Home::addMember'); // Form to add new member
-$routes->post('/Home/addMember', 'Home::addMember');//Add new member
-$routes->post('/saveMember', 'Home::saveMember'); // Save new member
-$routes->post('updateMember', 'Home::updateMember');
-$routes->post('/deleteMember', 'Home::deleteMember'); // Delete member
-$routes->get('/Home/getMemberDetails/(:num)', 'Home::getMemberDetails/$1');
-
-
+$routes->get('members/MHome', 'MemberController::loginView');
