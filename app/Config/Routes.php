@@ -26,10 +26,15 @@ $routes->post('/admin/updateMember', 'AdminController::updateMember');
 $routes->post('/admin/deleteMember', 'AdminController::deleteMember');
 $routes->get('/admin/getMemberDetails/(:num)', 'AdminController::getMemberDetails/$1');
 
-//Member routes
+//Login routes
 $routes->get('/AdminLogin', 'ChooseLogin::adminLogin'); // Show login form
-$routes->get('/UserLogin', 'ChooseLogin::userLogin'); // Show login form
+$routes->get('/UserLogin', 'ChooseLogin::memberLogin'); // Show login form
 $routes->get('/member/login', 'MemberController::login'); // Handle login
 $routes->get('/members/logout', 'Members::logout'); // Handle logout
 
-$routes->get('members/MHome', 'MemberController::loginView');
+// Navigation Routes for member
+$routes->get('/member/MHome', 'MemberController::home');
+$routes->get('/member/catalog', 'MemberController::catalog');
+$routes->get('/member/checkouts', 'MemberController::checkouts');
+$routes->get('/member/reports', 'MemberController::reports');
+$routes->get('/member/profile', 'MemberController::profile');

@@ -16,7 +16,7 @@ class ChooseLogin extends Controller
         return redirect()->to('/admin/login');
     }
 
-    public function userLogin()
+    public function memberLogin()
     {
         return redirect()->to('/member/login');
     }

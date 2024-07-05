@@ -11,11 +11,6 @@ class MemberController extends Controller
         return view('MemberLogin/index');
     }
 
-    public function index(): string
-    {
-        return view('Unavbar') . view('UHome');
-    }
-    
     public function home(): string
     {
         return view('Unavbar') . view('MHome/index');
@@ -23,22 +18,22 @@ class MemberController extends Controller
     
     public function catalog(): string
     {
-        return view('Unavbar') . view('UCatalog');
+        return view('Unavbar') . view('MCatalog/index');
     }
     
     public function checkouts(): string
     {
-        return view('Unavbar') . view('UCheckout');
+        return view('Unavbar') . view('MCheckouts/index');
     }
     
     public function reports(): string
     {
-        return view('Unavbar') . view('UReport');
+        return view('Unavbar') . view('MReports/index');
     }
     
     public function profile(): string
     {
-        return view('Unavbar') . view('UProfile');
+        return view('Unavbar') . view('MProfile/index');
     }    
 
     public function login()
@@ -47,7 +42,7 @@ class MemberController extends Controller
     
         $validation = \Config\Services::validation();
         $validation->setRules([
-            'username' => 'required|min_length[3]|max_length[100]',
+            'email' => 'required|valid_email|min_length[3]|max_length[100]',
             'password' => 'required|min_length[8]|max_length[255]',
         ]);
     
@@ -58,20 +53,20 @@ class MemberController extends Controller
         }
     
         $model = new \App\Models\MembersModel();
-        $username = $this->request->getPost('username');
+        $email = $this->request->getPost('email');
         $password = $this->request->getPost('password');
     
         if (!is_string($password)) {
             return redirect()->back()->with('error', 'Password should be a string.');
         }
     
-        $member = $model->where('username', $username)->first();
+        $member = $model->where('email', $email)->first();
     
         if ($member && password_verify($password, $member['password'])) {
-            session()->set('member_username', $member['username']);
+            session()->set('member_email', $member['email']);
             return redirect()->to('/member/home');
-        } else {
-            return redirect()->back()->with('error', 'Invalid username or password');
+        }     else {
+            return redirect()->back()->with('error', 'Invalid email or password');
         }
     }    
 
