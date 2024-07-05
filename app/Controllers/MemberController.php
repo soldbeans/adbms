@@ -13,27 +13,27 @@ class MemberController extends Controller
 
     public function home(): string
     {
-        return view('Unavbar') . view('MHome/index');
+        return view('Mnavbar') . view('MHome/index');
     }
     
     public function catalog(): string
     {
-        return view('Unavbar') . view('MCatalog/index');
+        return view('Mnavbar') . view('MCatalog/index');
     }
     
     public function checkouts(): string
     {
-        return view('Unavbar') . view('MCheckouts/index');
+        return view('Mnavbar') . view('MCheckouts/index');
     }
     
     public function reports(): string
     {
-        return view('Unavbar') . view('MReports/index');
+        return view('Mnavbar') . view('MReports/index');
     }
     
     public function profile(): string
     {
-        return view('Unavbar') . view('MProfile/index');
+        return view('Mnavbar') . view('MProfile/index');
     }    
 
     public function login()
@@ -64,8 +64,8 @@ class MemberController extends Controller
     
         if ($member && password_verify($password, $member['password'])) {
             session()->set('member_email', $member['email']);
-            return redirect()->to('/member/home');
-        }     else {
+            return redirect()->to('/member/MHome');
+        } else {
             return redirect()->back()->with('error', 'Invalid email or password');
         }
     }    

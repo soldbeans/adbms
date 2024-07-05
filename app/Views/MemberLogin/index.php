@@ -18,7 +18,7 @@
             <?php endif; ?>
             <?= \Config\Services::validation()->listErrors() ?>
             <form action="<?= site_url('member/login') ?>" method="post">
-                <?= csrf_field(); // Include CSRF token ?>
+                <?= csrf_field(); ?>
                 <div class="form-group">
                     <label for="email">Email</label>
                     <input type="email" class="form-control" id="email" name="email" required>

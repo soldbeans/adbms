@@ -32,7 +32,12 @@ $routes->get('/UserLogin', 'ChooseLogin::memberLogin'); // Show login form
 $routes->get('/member/login', 'MemberController::login'); // Handle login
 $routes->get('/members/logout', 'Members::logout'); // Handle logout
 
-// Navigation Routes for member
+// Member routes
+$routes->get('/UserLogin', 'ChooseLogin::memberLogin'); // Show login form
+$routes->post('/member/login', 'MemberController::login'); // Handle login
+$routes->get('/member/logout', 'MemberController::logout'); // Handle logout
+
+// Navigation Routes for members
 $routes->get('/member/MHome', 'MemberController::home');
 $routes->get('/member/catalog', 'MemberController::catalog');
 $routes->get('/member/checkouts', 'MemberController::checkouts');

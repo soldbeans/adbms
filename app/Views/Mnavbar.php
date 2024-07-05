@@ -20,23 +20,21 @@
         </button>
         <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
             <ul class="navbar-nav">
-                <li class="nav-item"><a class="nav-link" href="<?= base_url('/user/Home')?>">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="<?= base_url('/user/Catalog')?>">Catalog</a></li>
-                <li class="nav-item"><a class="nav-link" href="<?= base_url('/user/Checkouts')?>">My_Checkout</a></li>
-                <li class="nav-item"><a class="nav-link" href="<?= base_url('/user/Reports')?>">Report</a></li>
-                <li class="nav-item"><a class="nav-link" href="<?= base_url('/user/Profile')?>">Profile</a></li>
-                <?php if (session()->has('username')): ?>
-                    <li class="nav-item ml-auto"><span class="navbar-text"><?= session('username') ?></span></li>
-                    <li class="nav-item"><a class="nav-link" href="<?= base_url('/user/logout')?>">Logout</a></li>
+                <li class="nav-item"><a class="nav-link" href="<?= base_url('/member/MHome')?>">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="<?= base_url('/member/catalog')?>">Catalog</a></li>
+                <li class="nav-item"><a class="nav-link" href="<?= base_url('/member/checkouts')?>">My_Checkout</a></li>
+                <li class="nav-item"><a class="nav-link" href="<?= base_url('/member/reports')?>">Report</a></li>
+                <li class="nav-item"><a class="nav-link" href="<?= base_url('/member/profile')?>">Profile</a></li>
+                <?php if (session()->has('member_email')): ?>
+                    <li class="nav-item ml-auto"><span class="navbar-text"><?= session('member_email') ?></span></li>
+                    <li class="nav-item"><a class="nav-link" href="<?= base_url('/member/logout')?>">Logout</a></li>
                 <?php endif; ?>
             </ul>
         </div>
     </nav>
     <!-- Include jQuery and Bootstrap JavaScript -->
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <!-- External JavaScript file -->
-    <script src="<?= base_url('bookDetails.js') ?>"></script>
 </body>
 </html>
