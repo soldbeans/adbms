@@ -20,7 +20,7 @@ class CreateAdminTable extends Migration
                 'constraint' => '100',
             ],
             'password' => [
-                'type' => 'VARCHAR',
+                'type' => 'VARCHAR',    
                 'constraint' => '255',
             ],
             'created_at' => [
@@ -39,7 +39,7 @@ class CreateAdminTable extends Migration
         // Insert initial admin account
         $this->db->table('admin')->insert([
             'username' => 'admin',
-            'password' => password_hash('buratlover', PASSWORD_BCRYPT), // Hash the password
+            'password' => password_hash('adminpass', PASSWORD_BCRYPT), // Hash the password
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
         ]);

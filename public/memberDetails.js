@@ -1,68 +1,92 @@
 $(document).ready(function() {
-    // Handle click on View button to toggle member details
-    $('.btn-view').on('click', function() {
-        var row = $(this).closest('.member-row');
-        var detailsRow = row.next('.member-details-row');
-        var memberId = row.data('member-id');
-
-        if (detailsRow.is(':visible')) {
-            detailsRow.hide();
-        } else {
-            $.ajax({
-                url: '/Home/getMemberDetails/' + memberId,
-                method: 'GET',
-                dataType: 'json',
-                success: function(response) {
-                    if (response.status === 'success') {
-                        var member = response.member;
-                        var memberDetailsHtml = '<p>Email: ' + member.email + '</p>' +
-                                                '<p>Phone Number: ' + member.phone_number + '</p>' +
-                                                '<p>Status: ' + member.status + '</p>' +
-                                                '<p>Created At: ' + member.created_at + '</p>' +
-                                                '<p>Updated At: ' + member.updated_at + '</p>';
-                        detailsRow.find('.member-details').html(memberDetailsHtml);
-                        detailsRow.show();
-                    } else {
-                        alert('Failed to fetch member details.');
-                    }
-                },
-                error: function() {
-                    alert('Failed to fetch member details.');
+    // Handle View Button Click
+    $('#membersTable').on('click', '.btn-view', function() {
+        const memberId = $(this).data('id');
+        $.ajax({
+            url: '/admin/getMemberDetails',
+            method: 'POST',
+            data: { member_id: memberId },
+            dataType: 'json',
+            success: function(response) {
+                if (response.status === 'success') {
+                    const member = response.member;
+                    $('#edit_member_id').val(member.id);
+                    $('#edit_first_name').val(member.first_name);
+                    $('#edit_last_name').val(member.last_name);
+                    $('#edit_email').val(member.email);
+                    $('#edit_phone_number').val(member.phone_number);
+                    $('#edit_status').val(member.status);
+                    $('#edit_created_at').val(member.created_at);
+                    $('#edit_updated_at').val(member.updated_at);
+                    $('#memberDetailModal').modal('show');
+                } else {
+                    alert(response.message);
                 }
-            });
-        }
+            }
+        });
     });
 
-    // Handle click on Edit button
-    $(document).on('click', '.btn-edit', function() {
-        var row = $(this).closest('.member-row');
-        var memberId = row.data('member-id');
-        window.location.href = '/Home/updateMember/' + memberId;
+    // Handle Edit Button Click
+    $('#membersTable').on('click', '.btn-edit', function() {
+        const memberId = $(this).data('id');
+        $.ajax({
+            url: '/admin/getMemberDetails',
+            method: 'POST',
+            data: { member_id: memberId },
+            dataType: 'json',
+            success: function(response) {
+                if (response.status === 'success') {
+                    const member = response.member;
+                    $('#edit_member_id').val(member.id);
+                    $('#edit_first_name').val(member.first_name);
+                    $('#edit_last_name').val(member.last_name);
+                    $('#edit_email').val(member.email);
+                    $('#edit_phone_number').val(member.phone_number);
+                    $('#edit_status').val(member.status);
+                    $('#memberDetailModal').modal('show');
+                } else {
+                    alert(response.message);
+                }
+            }
+        });
     });
 
-    // Handle click on Delete button
-    $(document).on('click', '.btn-delete', function() {
-        var row = $(this).closest('.member-row');
-        var memberId = row.data('member-id');
+    // Handle Save Changes Button in Modal
+    $('#memberDetailForm').on('submit', function(e) {
+        e.preventDefault();
+        $.ajax({
+            url: '/admin/updateMember',
+            method: 'POST',
+            data: $(this).serialize(),
+            dataType: 'json',
+            success: function(response) {
+                if (response.status === 'success') {
+                    $('#memberDetailModal').modal('hide');
+                    alert('Member updated successfully');
+                    location.reload(); // Reload page to see the updated list
+                } else {
+                    alert(response.message);
+                }
+            }
+        });
+    });
 
-        // Confirm deletion
+    // Handle Delete Button Click
+    $('#membersTable').on('click', '.btn-delete', function() {
+        const memberId = $(this).data('id');
         if (confirm('Are you sure you want to delete this member?')) {
             $.ajax({
-                url: '/Home/deleteMember',
+                url: '/admin/deleteMember',
                 method: 'POST',
                 data: { member_id: memberId },
                 dataType: 'json',
                 success: function(response) {
                     if (response.status === 'success') {
-                        console.log('Member deleted successfully');
-                        // Optionally remove the deleted row from the table
-                        row.remove();
+                        alert('Member deleted successfully');
+                        location.reload(); // Reload page to see the updated list
                     } else {
-                        alert('Failed to delete member.');
+                        alert(response.message);
                     }
-                },
-                error: function() {
-                    alert('Failed to delete member.');
                 }
             });
         }

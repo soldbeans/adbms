@@ -1,7 +1,8 @@
 /* memberDetails.css */
 
 h2 {
-    margin-top: 30px; /* Adjust the value as needed */
+    margin-top: 100px; /* Adjust the value as needed */
+    padding-top: 50px;
 }
 
 .member-details-row.collapsed {

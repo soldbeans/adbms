@@ -1,5 +1,20 @@
-<link rel="stylesheet" href="<?= base_url('memberDetails.css') ?>">
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Members</title>
+    <link rel="stylesheet" href="<?= base_url('memberDetails.css') ?>">
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Add space above the h2 header */
+        h2 {
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
 <div class="container">
     <h2>Add Members</h2>
 
@@ -62,17 +77,9 @@
                         <td><?= esc($member['phone_number']) ?></td>
                         <td><?= esc($member['status']) ?></td>
                         <td>
-                            <button class="btn btn-info btn-sm btn-view">View</button>
-                            <button class="btn btn-warning btn-sm btn-edit">Edit</button>
-                            <button class="btn btn-danger btn-sm btn-delete">Delete</button>
-                        </td>
-                    </tr>
-                    <tr class="member-details-row" id="details-<?= esc($member['id']) ?>" style="display: none;">
-                        <td colspan="7">
-                            <div class="member-details">
-                                <!-- Placeholder for dynamic content -->
-                                <p>Loading...</p>
-                            </div>
+                            <button class="btn btn-info btn-sm btn-view" data-id="<?= esc($member['id']) ?>">View</button>
+                            <button class="btn btn-warning btn-sm btn-edit" data-id="<?= esc($member['id']) ?>">Edit</button>
+                            <button class="btn btn-danger btn-sm btn-delete" data-id="<?= esc($member['id']) ?>">Delete</button>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -85,7 +92,7 @@
     </table>
 </div>
 
-<!-- Modal for displaying member details -->
+<!-- Modal for displaying and editing member details -->
 <div class="modal fade" id="memberDetailModal" tabindex="-1" role="dialog" aria-labelledby="memberDetailModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -96,9 +103,48 @@
                 </button>
             </div>
             <div class="modal-body">
-                <!-- Member details will be loaded here -->
+                <form id="memberDetailForm">
+                    <input type="hidden" id="edit_member_id" name="member_id">
+                    <div class="form-group">
+                        <label for="edit_first_name">First Name</label>
+                        <input type="text" class="form-control" id="edit_first_name" name="first_name">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit_last_name">Last Name</label>
+                        <input type="text" class="form-control" id="edit_last_name" name="last_name">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit_email">Email</label>
+                        <input type="email" class="form-control" id="edit_email" name="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit_phone_number">Phone Number</label>
+                        <input type="text" class="form-control" id="edit_phone_number" name="phone_number">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit_password">Password</label>
+                        <input type="password" class="form-control" id="edit_password" name="password">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit_status">Status</label>
+                        <select class="form-control" id="edit_status" name="status">
+                            <option value="no violations">No Violations</option>
+                            <option value="penalized">Penalized</option>
+                            <option value="banned">Banned</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit_created_at">Created At</label>
+                        <input type="text" class="form-control" id="edit_created_at" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit_updated_at">Updated At</label>
+                        <input type="text" class="form-control" id="edit_updated_at" readonly>
+                    </div>
+                </form>
             </div>
             <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="saveMemberChanges">Save Changes</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
@@ -109,3 +155,5 @@
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="<?= base_url('memberDetails.js') ?>"></script>
+</body>
+</html>

@@ -11,7 +11,7 @@
         <h1>Choose Login</h1>
         <div class="login-options">
             <a href="<?= site_url('/AdminLogin') ?>" class="btn btn-primary">Admin Login</a>
-            <a href="<?= site_url('/UserLogin') ?>" class="btn btn-secondary">User Login</a>
+            <a href="<?= site_url('/MemberLogin') ?>" class="btn btn-secondary">User Login</a>
         </div>
     </div>
 </body>

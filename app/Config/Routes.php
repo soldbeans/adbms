@@ -20,22 +20,19 @@ $routes->get('/admin/addBook', 'AdminController::addBook');
 $routes->post('/admin/saveBook', 'AdminController::saveBook');
 $routes->post('/admin/updateBook', 'AdminController::updateBook');
 $routes->post('/admin/deleteBook', 'AdminController::deleteBook');
+$routes->post('/admin/getMemberDetails', 'AdminController::getMemberDetails');
 
 $routes->post('/admin/addMember', 'AdminController::addMember');
-$routes->get('/hash-passwords', 'PasswordHashController::hashExistingPasswords');
-$routes->get('/hash-passwords', 'PasswordHashController::index');
 $routes->post('/admin/updateMember', 'AdminController::updateMember');
 $routes->post('/admin/deleteMember', 'AdminController::deleteMember');
+$routes->post('/admin/getMemberDetails', 'AdminController::getMemberDetails');
 $routes->get('/admin/getMemberDetails/(:num)', 'AdminController::getMemberDetails/$1');
 
-//Login routes
+//Admin Login routes
 $routes->get('/AdminLogin', 'ChooseLogin::adminLogin'); // Show login form
-$routes->get('/UserLogin', 'ChooseLogin::memberLogin'); // Show login form
 $routes->get('/member/login', 'MemberController::login'); // Handle login
-$routes->get('/members/logout', 'Members::logout'); // Handle logout
 
-// Member routes
-$routes->get('/UserLogin', 'ChooseLogin::memberLogin'); // Show login form
+// Member Login routes
 $routes->post('/member/login', 'MemberController::login'); // Handle login
 $routes->get('/member/logout', 'MemberController::logout'); // Handle logout
 
@@ -45,3 +42,8 @@ $routes->get('/member/catalog', 'MemberController::catalog');
 $routes->get('/member/checkouts', 'MemberController::checkouts');
 $routes->get('/member/reports', 'MemberController::reports');
 $routes->get('/member/profile', 'MemberController::profile');
+
+$routes->get('/hash-passwords', 'PasswordHashController::hashExistingPasswords');
+$routes->get('/hash-passwords', 'PasswordHashController::index');
+
+

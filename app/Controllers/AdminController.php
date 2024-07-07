@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\BookModel;
 use App\Models\MembersModel;
 use App\Models\AdminLoginModel;
+use App\Models\ReportsModel;
 
 class AdminController extends BaseController
 {
@@ -49,9 +50,9 @@ class AdminController extends BaseController
         echo view('Members/index', $data);
     }
 
-    public function reports(): string
+    public function feedback(): string
     {
-        return view('navbar') . view("Reports/index");
+        return view('navbar') . view("feedback/index");
     }
 
     public function addBook(): string
@@ -204,47 +205,72 @@ class AdminController extends BaseController
         } else {
             return redirect()->back()->withInput()->with('error', 'Failed to add member');
         }
-    }           
+    }
+    
+    public function getMemberDetails()
+    {
+        $memberId = $this->request->getPost('member_id');
+        
+        if (!$memberId) {
+            return $this->response->setJSON(['status' => 'error', 'message' => 'Invalid member ID.']);
+        }
+    
+        $membersModel = new MembersModel();
+        $member = $membersModel->find($memberId);
+    
+        if (!$member) {
+            return $this->response->setJSON(['status' => 'error', 'message' => 'Member not found.']);
+        }
+    
+        return $this->response->setJSON(['status' => 'success', 'member' => $member]);
+    }                  
 
-    public function updateMember($memberId = null)
+    public function updateMember()
     {
         helper(['form']);
-    
+
         $validation = \Config\Services::validation();
         $validation->setRules([
-            'member_id' => 'required',
+            'member_id' => 'required|is_natural_no_zero',
             'first_name' => 'required|min_length[2]|max_length[100]',
             'last_name' => 'required|min_length[2]|max_length[100]',
             'email' => 'required|valid_email|max_length[100]',
             'phone_number' => 'required|max_length[15]',
-            'password' => 'required|min_length[8]|max_length[255]', // Allow empty password or validate if provided
+            'password' => 'permit_empty|min_length[8]|max_length[255]',
             'status' => 'required|in_list[no violations,penalized,banned]',
         ]);
-    
+
         if (!$validation->withRequest($this->request)->run()) {
-            return redirect()->back()->withInput()->with('validation', $validation);
+            return $this->response->setJSON([
+                'status' => 'error',
+                'errors' => $validation->getErrors()
+            ]);
         }
-    
+
         $data = [
             'first_name' => $this->request->getPost('first_name'),
             'last_name' => $this->request->getPost('last_name'),
             'email' => $this->request->getPost('email'),
             'phone_number' => $this->request->getPost('phone_number'),
             'status' => $this->request->getPost('status'),
+            'updated_at' => date('Y-m-d H:i:s'),
         ];
-    
+
         $password = $this->request->getPost('password');
-        if (!empty($password)) {
-            $data['password'] = $password; // Password will be hashed in the model
+
+        if (!empty($password) && is_string($password)) {
+            $data['password'] = password_hash($password, PASSWORD_DEFAULT); // Hash the password
         }
-    
+
         $model = new MembersModel();
+        $memberId = $this->request->getPost('member_id');
+
         if ($model->update($memberId, $data)) {
-            return redirect()->to('/admin/Members')->with('success', 'Member updated successfully');
+            return $this->response->setJSON(['status' => 'success']);
         } else {
-            return redirect()->back()->withInput()->with('error', 'Failed to update member');
+            return $this->response->setJSON(['status' => 'error', 'message' => 'Failed to update member.']);
         }
-    }    
+    }
 
     public function deleteMember()
     {
@@ -260,19 +286,7 @@ class AdminController extends BaseController
         } else {
             return $this->response->setJSON(['status' => 'error', 'message' => 'Invalid member ID.']);
         }
-    }
-
-    public function getMemberDetails($memberId)
-    {
-        $membersModel = new MembersModel();
-        $member = $membersModel->find($memberId);
-
-        if (!$member) {
-            return $this->response->setJSON(['status' => 'error', 'message' => 'Member not found.']);
-        }
-
-        return $this->response->setJSON(['status' => 'success', 'member' => $member]);
-    }
+    }    
 
     // New methods or modified methods
     public function loginView(): string
@@ -320,10 +334,24 @@ class AdminController extends BaseController
             return redirect()->back()->with('error', 'Invalid username or password');
         }
     }
-
+    
     public function logout()
     {
         $this->session->destroy();
         return redirect()->to('/');
+    }
+
+    public function add()
+    {
+        $model = new ReportsModel();
+        $data = [
+            'bookname' => $this->request->getPost('bookname'),
+            'username' => $this->request->getPost('username'),
+            'rating' => $this->request->getPost('rating'),
+            'feedback' => $this->request->getPost('feedback'),
+            'created_at' => date('Y-m-d H:i:s'),
+        ];
+        $model->insert($data);
+        return redirect()->to('/feedback');
     }
 }
